@@ -1,0 +1,92 @@
+﻿<Window x:Class="FamilyCreate.Views.EditPersonView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FamilyCreate.Views"
+        xmlns:viewModels="clr-namespace:FamilyCreate.ViewModels"
+        mc:Ignorable="d" SizeToContent="WidthAndHeight" MinHeight="240"
+        Title="EditPersonView" MinWidth="440">
+    <Window.DataContext>
+        <viewModels:EditPersonViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40px"/>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.6*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Добавление персоны" Grid.Column="0" FontSize="18" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0">
+            <TextBlock.LayoutTransform>
+                <RotateTransform Angle="-90"/>
+            </TextBlock.LayoutTransform>
+        </TextBlock>
+        
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+            <Button Content="Отмена" Margin="5,5,5,5" Width="110px" Command="{Binding CancelCommand}"/>
+            <Button Content="{Binding OKButtonText}" Margin="5,5,5,5" Width="110px" Command="{Binding OKCommand}"/>
+        </StackPanel>
+        
+        <GroupBox Header="Даты" Grid.Column="2">
+            <StackPanel>
+                <TextBlock Text="Дата рождения"/>
+                <DatePicker SelectedDate="{Binding Person.BornDate}"/>
+
+                <TextBlock Text="Место рождения"/>
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox MinWidth="200px" ItemsSource="{Binding Places}" SelectedValue="{Binding Person.BornPlace}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Content="+" Margin="5,0,0,0" Width="20" Command="{Binding AddBornCommand}" HorizontalAlignment="Right"/>
+                </StackPanel>
+
+                <TextBlock Text="Дата смерти"/>
+                <DatePicker SelectedDate="{Binding Person.DeathDate}"/>
+
+                <TextBlock Text="Место смерти"/>
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox MinWidth="200px" ItemsSource="{Binding Places}" SelectedValue="{Binding Person.DeathPlace}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Content="+" Margin="5,0,0,0" Width="20" Command="{Binding AddDeathCommand}" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Orientation="Vertical" Grid.Column="1">
+            <TextBlock Margin="5,5,0,0" Text="Фамилия"/>
+            <TextBox Margin="5,0,0,0" Text="{Binding Person.Surname}" HorizontalAlignment="Left" Width="150"/>
+
+            <TextBlock Margin="5,5,0,0" Text="Имя"/>
+            <TextBox Margin="5,0,0,0" Text="{Binding Person.Name}" HorizontalAlignment="Left" Width="150"/>
+
+            <TextBlock Margin="5,5,0,0" Text="Отчество"/>
+            <TextBox Margin="5,0,0,0" Text="{Binding Person.Patronomyc}" HorizontalAlignment="Left" Width="150"/>
+
+            <GroupBox Header="Пол" HorizontalAlignment="Left" Margin="5,0,0,0" Width="60px">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                        <TextBlock Text="М" HorizontalAlignment="Center"/>
+                        <RadioButton IsChecked="{Binding Person.IsMale}" GroupName="sexGroup"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Ж" HorizontalAlignment="Center"/>
+                        <RadioButton GroupName="sexGroup"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            
+        </StackPanel>
+    </Grid>
+</Window>

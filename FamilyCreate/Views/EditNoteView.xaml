@@ -1,0 +1,38 @@
+﻿<Window x:Class="FamilyCreate.Views.EditNoteView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:FamilyCreate.ViewModels"
+        mc:Ignorable="d" Title="{Binding Title}"
+        MinHeight="200px" MinWidth="320px" ResizeMode="CanResize" Width="30" SizeToContent="Height">
+    <Window.DataContext>
+        <viewmodels:EditNoteViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40px"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40px"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title}" FontSize="15" Grid.Column="0"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0">
+            <TextBlock.LayoutTransform>
+                <RotateTransform Angle="-90"/>
+            </TextBlock.LayoutTransform>
+        </TextBlock>
+
+        <TextBlock Grid.Column="1" Text="Текст заметки"/>
+        <TextBox Margin="0,15,3,0" VerticalAlignment="Stretch"
+                 Text="{Binding CurrentNote.Text, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" TextWrapping="Wrap"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <Button Content="Отменить изменения" Width="120px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
+            <Button Content="Сохранить изменения" Width="125px" Margin="5,5,5,5" Command="{Binding AddNoteCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>
