@@ -39,6 +39,17 @@ namespace FamilyCreate.ViewModels
             }
         }
 
+        public Rod? SelectedRod
+        {
+            get => selrod;
+            set
+            {
+                selrod = value;
+                OnPropertyChanged(nameof(SelectedRod));
+            }
+        }
+
+        private Rod? selrod;
         private Note? selnot;
 
         public bool IsTreeCreatedOrOpen
@@ -124,7 +135,18 @@ namespace FamilyCreate.ViewModels
             }
         }
 
+        public List<Rod> RodsList
+        {
+            get => rodlst;
+            set
+            {
+                rodlst = value;
+                OnPropertyChanged(nameof(RodsList));
+            }
+        }        
+
         private List<Note> notlst;
+        private List<Rod> rodlst;
         private List<Place> placelst;
         private List<Person> persList;
         private Tree? currentTree;
@@ -141,8 +163,9 @@ namespace FamilyCreate.ViewModels
         public ICommand DeleteValueCommand => new RelayCommand(Delete);
         public ICommand EditValueCommand => new RelayCommand(Edit);
         #endregion
-        #endregion        
+        #endregion
 
+        #region CreateOrOpenTreeMethods
         private void OpenTree(object obj)
         {
             CreateTreeView treeview = new CreateTreeView(true);
@@ -165,11 +188,14 @@ namespace FamilyCreate.ViewModels
             }
         }
 
+        #endregion
+
         private void LoadValuesAfterGetTree()
         {
             //PersonsList = App.DatabaseContext.PersonsTable.Select("SELECT * FROM Persons WHERE ");
             PlacesList = App.DatabaseContext.PlaceTable.ToList();
             NotesList = App.DatabaseContext.NoteTable.Select($"SELECT * FROM notes WHERE TreeID = {CurrentTree!.ID};");
+            RodsList = App.DatabaseContext.RodsTable.Select($"SELECT * FROM rods WHERE TreeID ={CurrentTree!.ID};");
         }
 
         private void SaveTree(object obj)
@@ -205,6 +231,13 @@ namespace FamilyCreate.ViewModels
                         EditPlaceView add = new EditPlaceView();
                         add.ShowDialog();
                         PlacesList = App.DatabaseContext.PlaceTable.ToList();
+                        break;
+                    }
+                case "Роды":
+                    {
+                        EditRodView add = new EditRodView(CurrentTree);
+                        add.ShowDialog();
+                        RodsList = App.DatabaseContext.RodsTable.Select($"SELECT * FROM rods WHERE TreeID ={CurrentTree!.ID};");
                         break;
                     }
             }
@@ -243,6 +276,14 @@ namespace FamilyCreate.ViewModels
                         PlacesList = App.DatabaseContext.PlaceTable.ToList();
                         break;
                     }
+                case "Роды":
+                    {
+                        if (SelectedRod == null) return;
+                        EditRodView add = new EditRodView(CurrentTree, SelectedRod);
+                        add.ShowDialog();
+                        RodsList = App.DatabaseContext.RodsTable.Select($"SELECT * FROM rods WHERE TreeID ={CurrentTree!.ID};");
+                        break;
+                    }
             }
         }
 
@@ -265,7 +306,7 @@ namespace FamilyCreate.ViewModels
                         if (SelectedNote == null) return;
                         App.DatabaseContext!.NoteTable.Remove(SelectedNote);
                         NotesList = App.DatabaseContext.NoteTable.Select($"SELECT * FROM notes WHERE TreeID = {CurrentTree!.ID};");
-                        MessageBox.Show("Выбранная заметка удалена!", "Удаление персоны", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Выбранная заметка удалена!", "Удаление заметки", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                     }
                 case "Места":
@@ -273,7 +314,15 @@ namespace FamilyCreate.ViewModels
                         if (SelectedPlace == null) return;
                         App.DatabaseContext!.PlaceTable.Remove(SelectedPlace);
                         PlacesList = App.DatabaseContext.PlaceTable.ToList();
-                        MessageBox.Show("Выбранное место удалено!", "Удаление персоны", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Выбранное место удалено!", "Удаление места", MessageBoxButton.OK, MessageBoxImage.Information);
+                        break;
+                    }
+                case "Роды":
+                    {
+                        if (SelectedRod == null) return;
+                        App.DatabaseContext!.RodsTable.Remove(SelectedRod);
+                        RodsList = App.DatabaseContext.RodsTable.Select($"SELECT * FROM rods WHERE TreeID = {CurrentTree!.ID};");
+                        MessageBox.Show("Выбранный род удален!", "Удаление рода", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
                     }
             }

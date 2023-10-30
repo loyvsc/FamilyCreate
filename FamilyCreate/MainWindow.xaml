@@ -121,6 +121,33 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
+            <TabItem Header="Роды">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120px"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                        <Separator Margin="5,5,5,5"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить дерево"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Обновить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Масштаб (100%)"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="На весь экран"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Сохранить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                    </StackPanel>
+                    <DataGrid ItemsSource="{Binding RodsList}" SelectedItem="{Binding SelectedRod}" IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

@@ -10,6 +10,8 @@ namespace FamilyCreate.Models
 
         public Rod()
         {
+            ID = -1;
+            TreeID = -1;
             Name = string.Empty;
         }
 
