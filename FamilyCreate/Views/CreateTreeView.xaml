@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodel="clr-namespace:FamilyCreate.ViewModels"
-        mc:Ignorable="d"
-        Title="CreateTreeView" Height="220" Width="200" ResizeMode="NoResize">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="{Binding TitleText}" Height="220" Width="200" ResizeMode="NoResize">
     <Window.DataContext>
         <viewmodel:CreateTreeViewModel/>
     </Window.DataContext>

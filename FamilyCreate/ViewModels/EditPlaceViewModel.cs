@@ -68,7 +68,6 @@ namespace FamilyCreate.ViewModels
             else
             {
                 App.DatabaseContext!.PlaceTable.Add(Place);
-                MainWindowViewModel.AddEditPlace = Place;
             }
             View.DialogResult = true;
         }

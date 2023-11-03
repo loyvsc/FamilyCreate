@@ -1,6 +1,8 @@
 ﻿using FamilyCreate.Database;
 using FamilyCreate.Models;
 using FamilyCreate.Views;
+using Shields.GraphViz.Components;
+using Shields.GraphViz.Services;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,7 +12,7 @@ namespace FamilyCreate.ViewModels
 {
     public class MainWindowViewModel : NotifyPropertyChangedBase
     {
-        public Tree? CurrentTree
+        public Tree CurrentTree
         {
             get => currentTree;
             set
@@ -54,7 +56,7 @@ namespace FamilyCreate.ViewModels
                 selevnt = value;
                 OnPropertyChanged(nameof(SelectedEvent));
             }
-        }        
+        }
         public Source? SelectedSource
         {
             get => selsrc;
@@ -200,7 +202,7 @@ namespace FamilyCreate.ViewModels
         private List<Rod> rodlst;
         private List<Place> placelst;
         private List<Person> persList;
-        private Tree? currentTree;
+        private Tree currentTree;
         private Person? currentPerson;
         private bool isTreeCrOrOp;
         private Source? selsrc;
@@ -215,6 +217,7 @@ namespace FamilyCreate.ViewModels
         public ICommand OpenTreeCommand => new RelayCommand(OpenTree);
         public ICommand SaveTreeCommand => new RelayCommand(SaveTree);
 
+        public ICommand CreateTreeCommand => new RelayCommand(CreateTree);
         public ICommand AddValueCommand => new RelayCommand(Add);
         public ICommand DeleteValueCommand => new RelayCommand(Delete);
         public ICommand EditValueCommand => new RelayCommand(Edit);
@@ -254,6 +257,11 @@ namespace FamilyCreate.ViewModels
             EventList = App.DatabaseContext.EventTable.Select($"SELECT * FROM EVENTS WHERE RODID IN (SELECT ID FROM rods WHERE TreeID ={CurrentTree.ID});");
             SourceList = App.DatabaseContext.SourceTable.Select($"SELECT * FROM SOURCES WHERE TREEID = {CurrentTree.ID};");
             DocumentsList = App.DatabaseContext.DocumentTable.Select($"SELECT * FROM DOCUMENTS WHERE TREEID = {CurrentTree.ID};");
+        }
+
+        private void CreateTree(object obj)
+        {
+
         }
 
         private void SaveTree(object obj)
@@ -321,6 +329,8 @@ namespace FamilyCreate.ViewModels
                     }
             }
         }
+
+        private ITable seldgv;
 
         private void Edit(object obj)
         {

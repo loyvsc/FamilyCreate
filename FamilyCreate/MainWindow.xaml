@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:FamilyCreate.ViewModels"
         xmlns:controls="clr-namespace:FamilyCreate.Controls"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="Программное средство «Генеалогическое древо»" MinHeight="445" MinWidth="400" SizeToContent="WidthAndHeight">
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
@@ -24,6 +24,13 @@
             <MenuItem Header="Дерево">
                 <MenuItem Header="Создать" Command="{Binding NewTreeCommand}"/>
                 <MenuItem Header="Открыть существующее" Command="{Binding OpenTreeCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem Header="Тема">
+                    <MenuItem Header="Светлая"/>
+                    <MenuItem Header="Темная"/>
+                </MenuItem>
+                <MenuItem Header="О программе"/>
             </MenuItem>
         </Menu>
         <TabControl IsEnabled="{Binding IsTreeCreatedOrOpen}" Grid.Row="1"

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FamilyCreate.Views"
         xmlns:viewModels="clr-namespace:FamilyCreate.ViewModels"
         mc:Ignorable="d" SizeToContent="WidthAndHeight" MinHeight="240"
-        Title="{Binding Title}" MinWidth="640">
+        Title="{Binding Title}" MinWidth="640" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
         <viewModels:EditPersonViewModel/>
     </Window.DataContext>

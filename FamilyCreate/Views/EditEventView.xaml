@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:FamilyCreate.ViewModels"
-        mc:Ignorable="d" Title="{Binding Title}"
+        mc:Ignorable="d" Title="{Binding Title}" WindowStartupLocation="CenterOwner"
         MinHeight="383px" MinWidth="700px" ResizeMode="CanResize" Width="30" SizeToContent="WidthAndHeight">
     <Window.DataContext>
         <viewmodels:EditEventViewModel/>
