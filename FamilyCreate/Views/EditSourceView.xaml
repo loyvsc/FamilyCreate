@@ -1,0 +1,41 @@
+﻿<Window x:Class="FamilyCreate.Views.EditSourceView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:FamilyCreate.ViewModels"
+        mc:Ignorable="d" Title="{Binding Title}"
+        MinHeight="300px" MinWidth="324" ResizeMode="CanResizeWithGrip" Width="30" SizeToContent="WidthAndHeight">
+    <Window.DataContext>
+        <viewmodels:EditSourceViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40px"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="38px"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition MinHeight="40px" Height="40px"/>
+        </Grid.RowDefinitions>
+       
+        <TextBlock Text="Название источника" Grid.Column="1"/>
+        <TextBox Text="{Binding Source.Name}" Margin="0,20,0,0" Grid.Column="1"/>
+        <TextBlock Text="{Binding Title}" FontSize="15" Grid.Column="0" Grid.RowSpan="3" Height="40px" TextAlignment="Right"
+                   HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,5,0,0" Background="Yellow">
+            <TextBlock.LayoutTransform>
+                <RotateTransform Angle="-90"/>
+            </TextBlock.LayoutTransform>
+        </TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Описание источника"/>
+        <TextBox Margin="0,15,3,0" VerticalAlignment="Stretch" Grid.Row="1"
+                 Text="{Binding Source.Text, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" TextWrapping="Wrap"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,8,0">
+            <Button Content="Отмена" Width="120px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
+            <Button Content="Сохранить изменения" Width="125px" Margin="5,5,5,5" Command="{Binding OKButtonCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>

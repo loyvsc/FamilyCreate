@@ -8,6 +8,8 @@ namespace FamilyCreate.Models
         public int TreeID { get; set; }
         public string Name { get; set; }
 
+        public bool IsValid => Name != string.Empty;
+
         public Rod()
         {
             ID = -1;
@@ -20,6 +22,23 @@ namespace FamilyCreate.Models
             ID = iD;
             TreeID = treeID;
             Name = name;
+        }
+
+
+        public static bool operator ==(Rod? a, Rod? b)
+        {
+            bool stat = false;
+            if (a?.ID == b?.ID && a?.Name == b?.Name && a?.TreeID == b?.TreeID)
+            {
+                stat = true;
+            }
+            return stat;
+        }
+
+
+        public static bool operator !=(Rod? a, Rod? b)
+        {
+            return !(a == b);
         }
     }
 }

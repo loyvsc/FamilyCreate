@@ -24,6 +24,15 @@ namespace FamilyCreate.Models
                 OnPropertyChanged(nameof(Text));
             }
         }
+        public string? Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
         public DateTime AddDate
         {
             get => addDate;
@@ -35,6 +44,7 @@ namespace FamilyCreate.Models
         }
 
         private int treeid;
+        private string? name;
         private string? text;
         private DateTime addDate;
 
@@ -42,14 +52,19 @@ namespace FamilyCreate.Models
         {
             ID = -1;
             TreeID = -1;
+            Name = string.Empty;
+            Text = string.Empty;
         }
 
-        public Note(int iD, int treeID, string text, DateTime date)
+        public Note(int iD, int treeID, string text, DateTime date, string name)
         {
             ID = iD;
             TreeID = treeID;
             Text = text;
             AddDate = date;
+            Name = name;
         }
+
+        public bool IsValid => Text != string.Empty && Name != string.Empty;
     }
 }

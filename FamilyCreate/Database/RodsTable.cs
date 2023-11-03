@@ -21,14 +21,18 @@ namespace FamilyCreate.Database
 
         public void RemoveAt(int id) => App.DatabaseContext?.Query($"DELETE FROM Rods WHERE ID = {id}");
 
-        public Rod ElementAt(int id)
+        public Rod? ElementAt(int id)
         {
             _connection.OpenAsync().Wait();
-            using (MySqlCommand command = _connection.CreateCommand())
+            using (MySqlCommand command = new MySqlCommand($"SELECT * FROM Rods WHERE ID = {id};", _connection))
             {
-                command.CommandText = $"SELECT * FROM Rods WHERE ID = {id};";
                 var reader = command.ExecuteReader();
-                Rod pers = ReadValue(reader);
+                reader.Read();
+                Rod? pers = null;
+                if (reader.HasRows)
+                {
+                    pers = ReadValue(reader);
+                }
                 _connection.CloseAsync().Wait();
                 return pers;
             }

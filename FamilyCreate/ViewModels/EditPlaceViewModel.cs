@@ -1,5 +1,6 @@
 ﻿using FamilyCreate.Models;
 using FamilyCreate.Views;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FamilyCreate.ViewModels
@@ -55,6 +56,11 @@ namespace FamilyCreate.ViewModels
 
         public void OK(object obj)
         {
+            if (!Place.IsValid)
+            {
+                MessageBox.Show("Введите всю информацию о месте!", TitleText, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (Place.ID != -1)
             {
                 App.DatabaseContext!.PlaceTable.Update(Place);

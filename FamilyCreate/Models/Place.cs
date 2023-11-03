@@ -41,7 +41,7 @@ namespace FamilyCreate.Models
                 OnPropertyChanged(nameof(Description));
             }
         }
-        public string Name
+        public string? Name
         {
             get => name;
             set
@@ -55,7 +55,10 @@ namespace FamilyCreate.Models
         private string? lat;
         private string? lon;
         private string? desc;
-        private string name;
+        private string? name;
+
+        public bool IsValid => Name != string.Empty && Description != string.Empty
+            && Longitude != string.Empty && Latitude != string.Empty;
 
         public Place()
         {
@@ -72,6 +75,6 @@ namespace FamilyCreate.Models
             Description = desc;
         }
 
-        public override string ToString() => Name;
+        public override string ToString() => Name!;
     }
 }

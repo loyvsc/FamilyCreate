@@ -24,6 +24,18 @@ namespace FamilyCreate.Models
                 OnPropertyChanged(nameof(RodID));
             }
         }
+        public Rod Rod
+        {
+            get => App.DatabaseContext.RodsTable.ElementAt(RodID);
+            set
+            {
+                if (value != null)
+                {
+                    RodID = value.ID;
+                }
+                OnPropertyChanged(nameof(Rod));
+            }
+        }
         public int PlaceID
         {
             get => placeid;
@@ -33,7 +45,7 @@ namespace FamilyCreate.Models
                 OnPropertyChanged(nameof(PlaceID));
             }
         }
-        public DateTime StartDate
+        public DateTime? StartDate
         {
             get => startdate;
             set
@@ -42,7 +54,7 @@ namespace FamilyCreate.Models
                 OnPropertyChanged(nameof(StartDate));
             }
         }
-        public DateTime EndDate
+        public DateTime? EndDate
         {
             get => enddate;
             set
@@ -60,30 +72,63 @@ namespace FamilyCreate.Models
                 OnPropertyChanged(nameof(Text));
             }
         }
+        public Place Place
+        {
+            get => App.DatabaseContext!.PlaceTable.ElementAt(PlaceID);
+            set
+            {
+                PlaceID = value.ID;
+                OnPropertyChanged(nameof(Place));
+            }
+        }
 
-        public Place Place => App.DatabaseContext!.PlaceTable.ElementAt(PlaceID);
-        public List<Person> EventPerons => App.DatabaseContext!.PersonsTable.Select($"SELECT * FROM Persons WHERE ID in (SELECT PersonID FROM EventPersons WHERE EventID = {ID});");
+        public DateTime? StartDateAsDate => StartDate?.Date;
+        public DateTime? EndDateAsDate => EndDate?.Date;
 
-        private DateTime startdate;
-        private DateTime enddate;
+        public List<Person> EventPerons
+        {
+            get => evpers;
+            set
+            {
+                evpers = value;
+                OnPropertyChanged(nameof(EventPerons));
+            }
+        }
+
+        #region Private Values
+        private List<Person> evpers;
+        private DateTime? startdate;
+        private DateTime? enddate;
         private string? text;
         private int rodid;
         private int placeid;
         private int id;
+        #endregion
 
         public Event()
         {
             ID = -1;
+            RodID = -1;
+            PlaceID = -1;
+            Text = string.Empty;
+            EventPerons = new List<Person>();
         }
 
-        public Event(int id, int rodId, int placeId, DateTime start, DateTime end, string text)
+        public Event(int id, int rodId, int placeId, DateTime? start, DateTime? end, string text) : this()
         {
             ID = id;
             RodID = rodId;
             PlaceID = placeId;
             StartDate = start;
             EndDate = end;
-            Text = text;
+            Text = text;            
+            EventPerons = App.DatabaseContext!.PersonsTable.Select($"SELECT * FROM Persons WHERE ID in (SELECT PersonID FROM EventPersons WHERE EventID = {ID});");
         }
+
+        public bool IsValid =>
+            RodID != -1 &&
+            PlaceID != -1 &&
+            StartDate != null &&
+            Text != string.Empty;
     }
 }

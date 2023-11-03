@@ -1,5 +1,6 @@
 ﻿using FamilyCreate.Models;
 using FamilyCreate.Views;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FamilyCreate.ViewModels
@@ -56,6 +57,11 @@ namespace FamilyCreate.ViewModels
 
         private void AddNote(object obj)
         {
+            if (!CurrentNote.IsValid)
+            {
+                MessageBox.Show("Введите всю информацию о заметке!", "Заметка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (CurrentNote.ID == -1)
             {
                 CurrentNote.AddDate = System.DateTime.Now;

@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Update="Views\EditEventView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EditDocumentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EditSourceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\EditRodView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

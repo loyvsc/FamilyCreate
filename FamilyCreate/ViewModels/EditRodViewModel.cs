@@ -1,5 +1,6 @@
 ﻿using FamilyCreate.Models;
 using FamilyCreate.Views;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FamilyCreate.ViewModels
@@ -55,6 +56,11 @@ namespace FamilyCreate.ViewModels
 
         private void AddNote(object obj)
         {
+            if (!CurrentRod.IsValid)
+            {
+                MessageBox.Show("Введите всю информацию о роду!", Title, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (CurrentRod.ID == -1)
             {
                 CurrentRod.TreeID = CurrentTreeID;

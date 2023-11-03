@@ -13,10 +13,10 @@ namespace FamilyCreate.Database
         }
         public string CreateTableQuery { get; set; }
             = "CREATE TABLE Notes (ID INT NOT NULL AUTO_INCREMENT," +
-            "TreeID int NOT NULL, Text varchar(300), AddDate DATE, PRIMARY KEY(ID));";
+            "TreeID int NOT NULL, Text varchar(300), AddDate DATE, Name varchar(100) not null, PRIMARY KEY(ID));";
 
         public void Add(Note item) => App.DatabaseContext?.
-            Query($"INSERT INTO Notes (treeid,text,adddate) VALUES ({item.TreeID},'{item.Text}','{item.AddDate.ToMySQLDateString()}');");
+            Query($"INSERT INTO Notes (treeid,text,adddate,Name) VALUES ({item.TreeID},'{item.Text}','{item.AddDate.ToMySQLDateString()}','{item.Name}');");
 
         public void Remove(Note item) => RemoveAt(item.ID);
 
@@ -54,9 +54,9 @@ namespace FamilyCreate.Database
         public List<Note> ToList() => Select("SELECT * FROM Notes;");
 
         public void Update(Note item) => App.DatabaseContext!.Query($"UPDATE Notes SET TreeID = {item.TreeID}," +
-            $"Text='{item.Text}',AddDate='{item.AddDate.ToMySQLDateString()}' WHERE ID = {item.ID};");
+            $"Text='{item.Text}',AddDate='{item.AddDate.ToMySQLDateString()}', Name = '{item.Name}' WHERE ID = {item.ID};");
 
         private Note ReadValue(MySqlDataReader reader) =>
-            new Note(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetDateTime(3));
+            new Note(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetDateTime(3),reader.GetString(4));
     }
 }

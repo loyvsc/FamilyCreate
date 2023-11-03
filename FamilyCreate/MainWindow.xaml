@@ -41,25 +41,23 @@
                         <Separator Margin="5,5,5,5"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Обновить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Масштаб (100%)"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="На весь экран"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Сохранить"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
                     </StackPanel>
                     <DataGrid Grid.Column="1" IsReadOnly="True" ItemsSource="{Binding PersonsList,UpdateSourceTrigger=PropertyChanged}"
                                  SelectedValue="{Binding SelectedPerson}" SelectionMode="Single" SelectionUnit="FullRow"
                                   HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                             <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname,UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Имя" Binding="{Binding Name,UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Отчество" Binding="{Binding Patronomyc,UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Возраст" Binding="{Binding Age,UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Пол" Binding="{Binding Sex,UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Дата рождения" Binding="{Binding BornDate,UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Место рождения" Binding="{Binding BornPlace,UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <DataGridTextColumn Header="Место рождения" Binding="{Binding BornPlace.Name,UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Дата рождения" Binding="{Binding DeathDate,UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Место рождения" Binding="{Binding DeathPlace,UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Место рождения" Binding="{Binding DeathPlace.Name,UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -77,15 +75,13 @@
                         <Separator Margin="5,5,5,5"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Обновить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Масштаб (100%)"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="На весь экран"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Сохранить"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
                     </StackPanel>
-                    <DataGrid ItemsSource="{Binding NotesList}" SelectedItem="{Binding SelectedNote}" IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False">
+                    <DataGrid ItemsSource="{Binding NotesList}" SelectedItem="{Binding SelectedNote}"
+                              IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                             <DataGridTextColumn Header="Текст" Binding="{Binding Text}" Width="200"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -104,10 +100,6 @@
                         <Separator Margin="5,5,5,5"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Обновить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Масштаб (100%)"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="На весь экран"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Сохранить"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding PlacesList}" SelectedItem="{Binding SelectedPlace}" IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False">
@@ -134,16 +126,88 @@
                         <Separator Margin="5,5,5,5"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Обновить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Масштаб (100%)"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="На весь экран"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Сохранить"/>
                         <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding RodsList}" SelectedItem="{Binding SelectedRod}" IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                             <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="События">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120px"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                        <Separator Margin="5,5,5,5"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить дерево"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                    </StackPanel>
+                    <DataGrid ItemsSource="{Binding EventList}" SelectedItem="{Binding SelectedEvent}" IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Место прохождения" Binding="{Binding Place}"/>
+                            <DataGridTextColumn Header="Дата начала" Binding="{Binding StartDateAsDate}"/>
+                            <DataGridTextColumn Header="Дата завершения" Binding="{Binding EndDateAsDate}"/>
+                            <DataGridTextColumn Header="Описание" Binding="{Binding Text}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Источники">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120px"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                        <Separator Margin="5,5,5,5"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить дерево"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                    </StackPanel>
+                    <DataGrid ItemsSource="{Binding SourceList}" SelectedItem="{Binding SelectedSource}" IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Дата добавления" Binding="{Binding AddDateAsString}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Описание" Binding="{Binding Text}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Документы">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120px"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                        <Separator Margin="5,5,5,5"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить дерево"/>
+                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                    </StackPanel>
+                    <DataGrid ItemsSource="{Binding DocumentsList}" SelectedItem="{Binding SelectedDocument}" IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Описание" Binding="{Binding Text}"/>
+                            <DataGridTextColumn Header="Дата добавления" Binding="{Binding AddDateAsString}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

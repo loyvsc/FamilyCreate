@@ -16,20 +16,24 @@ namespace FamilyCreate.Database
             "eventid int NOT NULL, personid int not null, PRIMARY KEY(ID));";
 
         public void Add(EventPerson item)
-            => App.DatabaseContext?.Query($"INSERT INTO EventActors (eventid,personid) VALUES ({item.EventID},{item.PersonID});");
+            => App.DatabaseContext?.Query($"INSERT INTO EventPersons (eventid,personid) VALUES ({item.EventID},{item.PersonID});");
 
         public void Remove(EventPerson item) => RemoveAt(item.ID);
 
         public void RemoveAt(int id) => App.DatabaseContext?.Query($"DELETE FROM EventActors WHERE ID = {id}");
 
-        public EventPerson ElementAt(int id)
+        public EventPerson? ElementAt(int id)
         {
             _connection.OpenAsync().Wait();
             using (MySqlCommand command = _connection.CreateCommand())
             {
                 command.CommandText = $"SELECT * FROM EventActors WHERE ID = {id};";
                 var reader = command.ExecuteReader();
-                EventPerson pers = ReadValue(reader);
+                EventPerson? pers = null;
+                if (reader.HasRows)
+                {
+                    pers = ReadValue(reader);
+                }
                 _connection.CloseAsync().Wait();
                 return pers;
             }

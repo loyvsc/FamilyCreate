@@ -27,20 +27,16 @@ namespace FamilyCreate.Database
 
         public void Add(Person item)
         {
-            if (item.DeathDate != null && item.DeathPlaceID != -1)
-            {
-                App.DatabaseContext?.Query("INSERT INTO Persons (RODID, NAME, SURNAME, PATRONOMYC," +
-            "BORNDATE,BORNPLACEID,DEATHDATE,DEATHPLACEID,ISMALE,FATHERID,MOTHERID) VALUES (" +
-            $"{item.RodID},'{item.Name}','{item.Surname}','{item.Patronomyc}','{item.BornDate?.ToMySQLDateString()}',{item.BornPlaceID}," +
-            $"'{item.DeathDate?.ToMySQLDateString()}',{item.DeathPlaceID},{item.IsMale},{item.FatherID},{item.MotherID};");
-            }
-            else
-            {
-                App.DatabaseContext?.Query("INSERT INTO Persons (RODID, NAME, SURNAME, PATRONOMYC," +
-            "BORNDATE,BORNPLACEID,ISMALE,FATHERID,MOTHERID) VALUES (" +
-            $"{item.RodID},'{item.Name}','{item.Surname}','{item.Patronomyc}','{item.BornDate?.ToMySQLDateString()}',{item.BornPlaceID}," +
-            $"{item.IsMale},{item.FatherID},{item.MotherID});");
-            }
+            string deathParams = (item.DeathDate != null && item.DeathPlaceID != -1) ? "DEATHDATE,DEATHPLACEID," : "";
+            string deathValues = (item.DeathDate != null && item.DeathPlaceID != -1) ? $"'{item.DeathDate?.ToMySQLDateString()}',{item.DeathPlaceID}," : "";
+
+            string fatmatParams = (item.FatherID != -1 && item.MotherID != -1) ? ",FATHERID,MOTHERID" : "";
+            string fatmatValues = (item.FatherID != -1 && item.MotherID != -1) ? $",{item.FatherID},{item.MotherID}" : "";
+
+            App.DatabaseContext?.Query("INSERT INTO Persons (RODID, NAME, SURNAME, PATRONOMYC," +
+        $"BORNDATE,BORNPLACEID,{deathParams}ISMALE{fatmatParams}) VALUES (" +
+        $"{item.RodID},'{item.Name}','{item.Surname}','{item.Patronomyc}','{item.BornDate?.ToMySQLDateString()}',{item.BornPlaceID}," +
+        $"{deathValues} {item.IsMale}{fatmatValues});");
         }
 
         public Person ElementAt(int id)
@@ -49,7 +45,7 @@ namespace FamilyCreate.Database
             using (MySqlCommand command = _connection.CreateCommand())
             {
                 command.CommandText = $"SELECT * FROM Persons WHERE ID = {id};";
-                var reader = command.ExecuteReader();
+                MySqlDataReader reader = command.ExecuteReader();
                 Person pers = ReadValue(reader);
                 _connection.CloseAsync().Wait();
                 return pers;
@@ -87,6 +83,6 @@ namespace FamilyCreate.Database
         private Person ReadValue(MySqlDataReader reader) =>
             new Person(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3),
                 reader.GetString(4), reader.GetDateTime(5), reader.GetInt32(6), (reader.IsDBNull(7) ? null : reader.GetDateTime(7)),
-                (reader.IsDBNull(8) ? null : reader.GetInt32(8)), reader.GetBoolean(9), reader.GetInt32(10), reader.GetInt32(11));
+                reader.IsDBNull(8) ? null : reader.GetInt32(8), reader.GetBoolean(9), (reader.IsDBNull(10) ? 0 : reader.GetInt32(10)), reader.IsDBNull(11) ? 0 : reader.GetInt32(11));
     }
 }

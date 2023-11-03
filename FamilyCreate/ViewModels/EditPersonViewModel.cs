@@ -37,9 +37,50 @@ namespace FamilyCreate.ViewModels
                 OnPropertyChanged(nameof(Places));
             }
         }
+        public List<Rod> Rods
+        {
+            get => rods;
+            set
+            {
+                rods = value;
+                OnPropertyChanged(nameof(Rods));
+            }
+        }
+        public List<Person> MothersList
+        {
+            get => motlst;
+            set
+            {
+                motlst = value;
+                OnPropertyChanged(nameof(MothersList));
+            }
+        }
+        public List<Person> FathersList
+        {
+            get => fatlst;
+            set
+            {
+                fatlst = value;
+                OnPropertyChanged(nameof(FathersList));
+            }
+        }
 
+        public string Title
+        {
+            get => title;
+            set
+            {
+                title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
+
+        private string title;
+        private List<Person> fatlst;
+        private List<Person> motlst;
         private List<Place> places;
-        private Window? parentWindow;
+        private List<Rod> rods;
+        private readonly Window? parentWindow;
         private Person pers;
 
         #region Constructors
@@ -48,6 +89,9 @@ namespace FamilyCreate.ViewModels
             Person = new Person();
             OKButtonText = "Добавить";
             Places = App.DatabaseContext.PlaceTable.ToList();
+            Rods = App.DatabaseContext.RodsTable.ToList();
+            Title = "Добавление персоны";
+            MothersList = App.DatabaseContext.PersonsTable.Select("SELECT * FROM Persons WHERE ismale = 0;");            
         }
 
         public EditPersonViewModel(Window view) : this()
@@ -55,24 +99,28 @@ namespace FamilyCreate.ViewModels
             parentWindow = view;
         }
 
-        public EditPersonViewModel(Window view, Person person)
+        public EditPersonViewModel(Window view, Person person) : this(view)
         {
-            parentWindow = view;
             Person = person;
             OKButtonText = "Сохранить";
+            Title = "Редактирование персоны";
         }
         #endregion
 
         private void OK(object obj)
         {
-            MainWindowViewModel.AddEditPerson = Person;
+            if (!Person.IsValid)
+            {
+                MessageBox.Show("Введите всю информацию о персоне!", Title, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (Person.ID != -1)
             {
-                App.DatabaseContext!.PersonsTable.Update(Person);
+                App.DatabaseContext.PersonsTable.Update(Person);
             }
             else
             {
-                App.DatabaseContext!.PersonsTable.Add(Person);
+                App.DatabaseContext.PersonsTable.Add(Person);
             }
             parentWindow!.DialogResult = true;
         }
@@ -88,7 +136,6 @@ namespace FamilyCreate.ViewModels
             if (placeView.ShowDialog() == true)
             {
                 Places = App.DatabaseContext.PlaceTable.ToList();
-                Person.BornPlace = App.DatabaseContext.PlaceTable.ElementAt(App.DatabaseContext.PlaceTable.GetIDByItem(MainWindowViewModel.AddEditPlace!));
             }
         }
 
@@ -98,7 +145,6 @@ namespace FamilyCreate.ViewModels
             if (placeView.ShowDialog() == true)
             {
                 Places = App.DatabaseContext.PlaceTable.ToList();
-                Person.DeathPlace = App.DatabaseContext.PlaceTable.ElementAt(App.DatabaseContext.PlaceTable.GetIDByItem(MainWindowViewModel.AddEditPlace!));
             }
         }
 

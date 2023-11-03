@@ -95,7 +95,7 @@ namespace FamilyCreate.ViewModels
         private Tree? newTree;
         private Visibility isCreateBoxEnabled;
         private Visibility isOpenBoxEnabled;
-        private Window? parentWindow;
+        private readonly Window? parentWindow;
 
         public CreateTreeViewModel() => NewTree = new Tree();
 
@@ -104,7 +104,6 @@ namespace FamilyCreate.ViewModels
             parentWindow = parent;
             if (forOpen)
             {
-                
                 ButtonCommand = new RelayCommand(SelectCreatedTree);
                 Trees = App.DatabaseContext.TreeTable.ToList();
                 TitleText = "Открытие дерева";

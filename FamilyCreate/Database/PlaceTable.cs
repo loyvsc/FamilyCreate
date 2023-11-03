@@ -23,13 +23,18 @@ namespace FamilyCreate.Database
 
         public Place ElementAt(int id)
         {
-            _connection.OpenAsync().Wait();
+            _connection.Open();
             using (MySqlCommand command = _connection.CreateCommand())
             {
                 command.CommandText = $"SELECT * FROM Places WHERE ID = {id};";
                 var reader = command.ExecuteReader();
-                Place pers = ReadValue(reader);
-                _connection.CloseAsync().Wait();
+                reader.Read();
+                Place pers = new Place();
+                if (reader.HasRows)
+                {
+                    pers = ReadValue(reader);
+                }
+                _connection.Close();
                 return pers;
             }
         }
@@ -55,7 +60,7 @@ namespace FamilyCreate.Database
         public List<Place> Select(string query)
         {
             List<Place> list = new List<Place>();
-            _connection.OpenAsync().Wait();
+            _connection.Open();
             using (MySqlCommand command = new MySqlCommand(query, _connection))
             {
                 var reader = command.ExecuteReader();
@@ -64,7 +69,7 @@ namespace FamilyCreate.Database
                     list.Add(ReadValue(reader));
                 }
             }
-            _connection.CloseAsync().Wait();
+            _connection.Close();
             return list;
         }
 

@@ -1,5 +1,6 @@
 ﻿using FamilyCreate.Models;
 using MySqlConnector;
+using System;
 using System.Collections.Generic;
 
 namespace FamilyCreate.Database
@@ -13,10 +14,10 @@ namespace FamilyCreate.Database
         }
 
         public string CreateTableQuery { get; set; } = "CREATE TABLE Sources" +
-            "(ID INT NOT NULL AUTO_INCREMENT, TreeID INT NOT NULL, TEXT VARCHAR(300), AddDate DATE, PRIMARY KEY(ID));";
+            "(ID INT NOT NULL AUTO_INCREMENT, TreeID INT NOT NULL, TEXT VARCHAR(300), AddDate DATE not null,Name varchar(40) not null, PRIMARY KEY(ID));";
 
         public void Add(Source item) => App.DatabaseContext?.Query
-            ($"INSERT INTO Sources (TreeID, Text, AddDate) VALUES ({item.TreeID},'{item.Text}','{item.AddDate.ToMySQLDateString()}');");
+            ($"INSERT INTO Sources (TreeID, Text, AddDate, Name) VALUES ({item.TreeID},'{item.Text}','{item.AddDate.ToMySQLDateString()}','{item.Name}');");
 
         public void Remove(Source item) => RemoveAt(item.ID);
 
@@ -29,7 +30,12 @@ namespace FamilyCreate.Database
             {
                 command.CommandText = $"SELECT * FROM Sources WHERE ID = {id};";
                 var reader = command.ExecuteReader();
-                Source pers = ReadValue(reader);
+                reader.Read();
+                Source pers = new Source();
+                if (reader.HasRows)
+                {
+                    pers = ReadValue(reader);
+                }
                 _connection.CloseAsync().Wait();
                 return pers;
             }
@@ -53,9 +59,16 @@ namespace FamilyCreate.Database
 
         public List<Source> ToList() => Select("SELECT * FROM Sources;");
         public void Update(Source item) =>
-            App.DatabaseContext!.Query($"UPDATE Sources SET TreeID = {item.TreeID}, Text = {item.Text} WHERE ID = {item.ID};");
+            App.DatabaseContext!.Query($"UPDATE Sources SET TreeID = {item.TreeID}, Text = '{item.Text}', Name = '{item.Name}' WHERE ID = {item.ID};");
 
-        private Source ReadValue(MySqlDataReader reader) =>
-            new Source(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetDateTime(3));
+        private Source ReadValue(MySqlDataReader reader)
+        {
+            int id = reader.GetInt32(0);
+            int treeid = reader.GetInt32(1);
+            string text = reader.GetString(2);
+            DateTime adddate = reader.GetDateTime(3);
+            string name = reader.GetString(4);
+            return new Source(id, treeid, text, adddate, name);
+        }
     }
 }

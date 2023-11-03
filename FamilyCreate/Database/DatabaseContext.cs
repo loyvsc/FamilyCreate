@@ -5,8 +5,8 @@ namespace FamilyCreate.Database
 {
     public class DatabaseContext : IDatabaseContext
     {
-        public static string CreateConnectionString = "server=localhost;user=root;password=546909023Var;";
-        public static string ConnectionString = "server=localhost;user=root;database=familytree;password=546909023Var;";
+        public const string CreateConnectionString = "server=localhost;user=root;password=546909023Var;";
+        public const string ConnectionString = "server=localhost;user=root;database=familytree;password=546909023Var;";
 
         public TreeTable TreeTable { get; private set; }
         public PersonsTable PersonsTable { get; private set; }
@@ -17,6 +17,7 @@ namespace FamilyCreate.Database
         public DocumentTable DocumentTable { get; private set; }
         public SourceTable SourceTable { get; private set; }
         public NoteTable NoteTable { get; private set; }
+        public FilesTable FileTable { get; private set; }
 
         private readonly MySqlConnection _connection;
 
@@ -32,7 +33,8 @@ namespace FamilyCreate.Database
             DocumentTable = new DocumentTable();
             NoteTable = new NoteTable();
             SourceTable = new SourceTable();
-            InitializeDatabase();            
+            FileTable = new FilesTable();
+            InitializeDatabase();
         }
 
         public void InitializeDatabase()
@@ -47,34 +49,28 @@ namespace FamilyCreate.Database
             CreateTables();
         }
 
-        public bool IsBDCreated
+        public bool IsBDCreated => CheckBDCreated();
+
+        private bool CheckBDCreated()
         {
-            get
+            bool res = false;
+            using (MySqlConnection con = new MySqlConnection(CreateConnectionString))
             {
-                using (MySqlConnection con = new MySqlConnection(CreateConnectionString))
-                {
-                    con.Open();
-                    MySqlCommand comm = new MySqlCommand("SELECT * FROM information_schema.tables " +
-                            " WHERE table_schema = 'familytree' AND TABLE_NAME = 'trees' LIMIT 1", con);
-                    MySqlDataReader reader = comm.ExecuteReader();
-                    bool res = reader.HasRows;
-                    con.Close();
-                    return res;
-                }
+                con.Open();
+                MySqlCommand comm = new MySqlCommand("SELECT * FROM information_schema.tables " +
+                        " WHERE table_schema = 'familytree' AND TABLE_NAME = 'trees' LIMIT 1", con);
+                MySqlDataReader reader = comm.ExecuteReader();
+                res = reader.HasRows;
+                con.Close();
             }
+            return res;
         }
 
         private void CreateTables()
         {
-            Query(TreeTable.CreateTableQuery);
-            Query(PersonsTable.CreateTableQuery);
-            Query(RodsTable.CreateTableQuery);
-            Query(EventActorsTable.CreateTableQuery);
-            Query(PlaceTable.CreateTableQuery);
-            Query(EventTable.CreateTableQuery);
-            Query(DocumentTable.CreateTableQuery);
-            Query(SourceTable.CreateTableQuery);
-            Query(NoteTable.CreateTableQuery);
+            Query(TreeTable.CreateTableQuery + PersonsTable.CreateTableQuery + RodsTable.CreateTableQuery +
+                EventActorsTable.CreateTableQuery + PlaceTable.CreateTableQuery + EventTable.CreateTableQuery +
+                DocumentTable.CreateTableQuery + NoteTable.CreateTableQuery + SourceTable.CreateTableQuery + FileTable.CreateTableQuery);
             CreateFKS();
         }
 
@@ -83,12 +79,12 @@ namespace FamilyCreate.Database
 
         public void Query(string query)
         {
-            _connection.OpenAsync().Wait();
+            _connection.Open();
             using (MySqlCommand command = new MySqlCommand(query, _connection))
             {
-                command.ExecuteNonQueryAsync().Wait();
+                command.ExecuteNonQuery();
             }
-            _connection.CloseAsync().Wait();
+            _connection.Close();
         }
     }
 

@@ -5,14 +5,29 @@ namespace FamilyCreate.Models
 {
     public class Person : NotifyPropertyChangedBase, ITable
     {
-        public string FIO => Surname + " " + Name + " " + Patronomyc;
+        public string? FIO => Surname + " " + Name + " " + Patronomyc;
         public int? Age => DateTime.Now.Year - BornDate?.Year;
         public bool IsAlive => DeathDate == null;
         public string Sex => IsMale ? "М" : "Ж";
 
         public int ID { get; set; }
         public int RodID { get; set; }
-        public string Name
+
+        public Rod? Rod
+        {
+            get => rod;
+            set
+            {
+                rod = value;
+                if (value != null)
+                {
+                    RodID = value.ID;
+                }
+                OnPropertyChanged(nameof(Rod));
+            }
+        }
+
+        public string? Name
         {
             get => name;
             set
@@ -21,7 +36,7 @@ namespace FamilyCreate.Models
                 OnPropertyChanged(nameof(Name));
             }
         }
-        public string Surname
+        public string? Surname
         {
             get => surname;
             set
@@ -30,7 +45,7 @@ namespace FamilyCreate.Models
                 OnPropertyChanged(nameof(Surname));
             }
         }
-        public string Patronomyc
+        public string? Patronomyc
         {
             get => patronomyc;
             set
@@ -140,6 +155,7 @@ namespace FamilyCreate.Models
             set
             {
                 mother = value;
+                MotherID = value!.ID;
                 OnPropertyChanged(nameof(Mother));
             }
         }
@@ -149,13 +165,14 @@ namespace FamilyCreate.Models
             set
             {
                 father = value;
+                FatherID = value!.ID;
                 OnPropertyChanged(nameof(Father));
             }
         }
 
-        private string name;
-        private string surname;
-        private string patronomyc;
+        private string? name;
+        private string? surname;
+        private string? patronomyc;
         private DateTime? bornDate;
         private Place? bornplace;
         private Place? deathplace;
@@ -167,6 +184,7 @@ namespace FamilyCreate.Models
         private int motherId;
         private Person? father;
         private Person? mother;
+        private Rod? rod;
 
         public Person()
         {
@@ -174,7 +192,10 @@ namespace FamilyCreate.Models
             Name = string.Empty;
             Surname = string.Empty;
             Patronomyc = string.Empty;
-            DeathPlaceID = -1;
+            RodID = -1;
+            FatherID = -1;
+            MotherID = -1;
+            BornPlaceID = -1;
         }
 
         public Person(int iD, int rodID, string name, string surname, string patronomyc,
@@ -193,8 +214,21 @@ namespace FamilyCreate.Models
             IsMale = isMale;
             FatherID = fatherid;
             MotherID = motherid;
+            BornPlace = App.DatabaseContext.PlaceTable.ElementAt(BornPlaceID);
+            if (DeathPlaceID != null)
+            {
+                DeathPlace = App.DatabaseContext.PlaceTable.ElementAt((int)DeathPlaceID);
+            }
         }
 
-        public override string ToString() => FIO;
+        public override string ToString() => FIO!;
+
+        public bool IsValid =>
+            RodID != -1 &&
+            BornPlaceID != -1 &&
+            (Name != string.Empty || Surname != string.Empty || Patronomyc!=string.Empty) &&
+            Patronomyc != string.Empty &&
+            BornDate != null;
+
     }
 }

@@ -6,7 +6,7 @@ namespace FamilyCreate.Database
 {
     public class EventTable : IDBSet<Event>
     {
-        private MySqlConnection _connection;
+        private readonly MySqlConnection _connection;
         public EventTable()
         {
             _connection = new MySqlConnection(DatabaseContext.ConnectionString);
@@ -15,8 +15,15 @@ namespace FamilyCreate.Database
             = "CREATE TABLE Events (ID INT NOT NULL AUTO_INCREMENT," +
             "RODID int not null,placeid int not null, startdate date, enddate date,text varchar(300), PRIMARY KEY(ID));";
 
-        public void Add(Event item) => App.DatabaseContext?.Query("INSERT INTO " +
-            $"Events (rodid,placeid,startdate,enddate,text) VALUES ({item.RodID},{item.PlaceID},'{item.StartDate.ToMySQLDateString()}','{item.EndDate.ToMySQLDateString()}','{item.Text}');");
+        public void Add(Event item)
+        {
+            string enddate = item.EndDate != null ? $"'{item.EndDate?.ToMySQLDateString()}'" : "NULL";
+            string startdate = item.StartDate != null ? $"'{item.StartDate?.ToMySQLDateString()}'" : "NULL";
+            App.DatabaseContext?.Query("INSERT INTO " +
+            $"Events (rodid,placeid,startdate,enddate,text) VALUES " +
+            $"({item.RodID},{item.PlaceID},{startdate}," +
+            $"{enddate},'{item.Text}');");
+        }
 
         public void Remove(Event item) => RemoveAt(item.ID);
 
@@ -53,12 +60,19 @@ namespace FamilyCreate.Database
 
         public List<Event> ToList() => Select("SELECT * FROM Events;");
 
-        public void Update(Event item) =>
-            App.DatabaseContext!.Query($"UPDATE Event SET RodID = {item.RodID}, PlaceID = {item.PlaceID}," +
-                $"StartDate = '{item.StartDate.ToMySQLDateString()}',EndDate ='{item.EndDate.ToMySQLDateString()}',Text='{item.Text}' WHERE ID = {item.ID};");
+        public void Update(Event item)
+        {
+            string enddate = item.EndDate == null ? "NULL" : $"'{item.EndDate?.ToMySQLDateString()}'";
+            App.DatabaseContext!.Query($"UPDATE Events SET RodID = {item.RodID}," +
+                $"PlaceID = {item.PlaceID}," +
+                $"StartDate = '{item.StartDate?.ToMySQLDateString()}'," +
+                $"EndDate = {enddate}," +
+                $"Text='{item.Text}' " +
+                $"WHERE ID = {item.ID};");
+        }
 
         private Event ReadValue(MySqlDataReader reader) =>
-            new Event(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetDateTime(3),
-                reader.GetDateTime(4), reader.GetString(5));
+            new Event(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.IsDBNull(3) == true ? null : reader.GetDateTime(3),
+                reader.IsDBNull(4) == true ? null : reader.GetDateTime(4), reader.GetString(5));
     }
 }
