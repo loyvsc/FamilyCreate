@@ -21,20 +21,9 @@ namespace FamilyCreate.ViewModels
         public int CurrentTreeID { get; set; }
         public EditNoteView Parent { get; set; }
 
-        public string Title
-        {
-            get => title;
-            set
-            {
-                title = value;
-                OnPropertyChanged(nameof(Title));
-            }
-        }
-
         public ICommand AddNoteCommand => new RelayCommand(AddNote);
         public ICommand CancelCommand => new RelayCommand((object obj) => Parent.DialogResult = true);
 
-        private string title;
         private Note curNot;
 
         public EditNoteViewModel() { }
@@ -43,13 +32,13 @@ namespace FamilyCreate.ViewModels
         {
             if (currentNote == null)
             {
-                Title = "Написание заметки";
+                parent.Title = "Написание заметки";
                 CurrentNote = new Note();
             }
             else
             {
                 CurrentNote = currentNote;
-                Title = "Редактирование заметки";
+                parent.Title = "Редактирование заметки";
             }
             CurrentTreeID = currentTree.ID;
             Parent = parent;

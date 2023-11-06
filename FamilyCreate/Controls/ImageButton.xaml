@@ -3,12 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" x:Name="MyUserControl"
+             mc:Ignorable="d" x:Name="MyUserControl" 
              d:DesignHeight="35" d:DesignWidth="120">
-    <Button x:Name="btn" Command="{Binding Path=ButtonCommand,ElementName=MyUserControl}" CommandParameter="{Binding ElementName=MyUserControl,Path=ButtonCommandParameter}">
-        <StackPanel Orientation="Horizontal">
-            <Image x:Name="img" Source="{Binding Path=ImageSource, ElementName=MyUserControl}"/>
-            <TextBlock x:Name="txtb" Text="{Binding Path=ButtonText,ElementName=MyUserControl}"/>
-        </StackPanel>
+    <Button x:Name="btn" BorderThickness="0" Background="#F0F0F0"
+            Command="{Binding ButtonCommand,ElementName=MyUserControl}"
+            CommandParameter="{Binding ButtonCommandParameter,ElementName=MyUserControl}" HorizontalContentAlignment="Left">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" x:Name="img" Source="{Binding Path=ImageSource, ElementName=MyUserControl}"/>
+            <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center"
+                       HorizontalAlignment="Left" x:Name="txtb"
+                       Text="{Binding Path=ButtonText,ElementName=MyUserControl}"/>
+        </Grid>
     </Button>
 </UserControl>

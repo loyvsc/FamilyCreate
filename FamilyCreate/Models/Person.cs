@@ -65,6 +65,8 @@ namespace FamilyCreate.Models
             }
         }
 
+        public string? ShortBornDate => BornDate?.ToShortDateString();
+
         public Place? BornPlace
         {
             get => bornplace;
@@ -78,7 +80,7 @@ namespace FamilyCreate.Models
                 OnPropertyChanged(nameof(BornPlace));
             }
         }
-        public int BornPlaceID
+        public int? BornPlaceID
         {
             get => bornPlaceid;
             set
@@ -96,6 +98,21 @@ namespace FamilyCreate.Models
             {
                 deathDate = value;
                 OnPropertyChanged(nameof(DeathDate));
+            }
+        }
+        public string? ShortDeathDate
+        {
+            get
+            {
+                string val = DeathDate?.ToShortDateString();
+                if (val != null)
+                {
+                    return val;
+                }
+                else
+                {
+                    return "-";
+                }
             }
         }
         public Place? DeathPlace
@@ -170,13 +187,14 @@ namespace FamilyCreate.Models
             }
         }
 
+        #region Private vars
         private string? name;
         private string? surname;
         private string? patronomyc;
         private DateTime? bornDate;
         private Place? bornplace;
         private Place? deathplace;
-        private int bornPlaceid;
+        private int? bornPlaceid;
         private DateTime? deathDate;
         private int? deathPlaceid;
         private bool isMale;
@@ -185,6 +203,7 @@ namespace FamilyCreate.Models
         private Person? father;
         private Person? mother;
         private Rod? rod;
+        #endregion
 
         public Person()
         {
@@ -199,7 +218,7 @@ namespace FamilyCreate.Models
         }
 
         public Person(int iD, int rodID, string name, string surname, string patronomyc,
-            DateTime borndate, int bornplaceid, DateTime? deathdate, int? deathplaceid, bool isMale, int fatherid,
+            DateTime? borndate, int? bornplaceid, DateTime? deathdate, int? deathplaceid, bool isMale, int fatherid,
             int motherid)
         {
             ID = iD;
@@ -214,7 +233,18 @@ namespace FamilyCreate.Models
             IsMale = isMale;
             FatherID = fatherid;
             MotherID = motherid;
-            BornPlace = App.DatabaseContext.PlaceTable.ElementAt(BornPlaceID);
+            mother = null;
+            father = null;
+            if (FatherID != 0)
+            {
+                Father = App.DatabaseContext.PersonsTable.ElementAt(FatherID);
+            }
+            if (MotherID != 0)
+            {
+                Mother = App.DatabaseContext.PersonsTable.ElementAt(MotherID);
+            }
+            if (BornPlaceID!=null)
+            BornPlace = App.DatabaseContext.PlaceTable.ElementAt((int)BornPlaceID);
             if (DeathPlaceID != null)
             {
                 DeathPlace = App.DatabaseContext.PlaceTable.ElementAt((int)DeathPlaceID);
@@ -226,8 +256,7 @@ namespace FamilyCreate.Models
         public bool IsValid =>
             RodID != -1 &&
             BornPlaceID != -1 &&
-            (Name != string.Empty || Surname != string.Empty || Patronomyc!=string.Empty) &&
-            Patronomyc != string.Empty &&
+            (Name != string.Empty || Surname != string.Empty || Patronomyc != string.Empty) &&
             BornDate != null;
 
     }

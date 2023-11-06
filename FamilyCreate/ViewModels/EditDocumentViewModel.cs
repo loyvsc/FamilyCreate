@@ -2,7 +2,6 @@
 using FamilyCreate.Views;
 using Microsoft.Win32;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -19,15 +18,6 @@ namespace FamilyCreate.ViewModels
             {
                 doc = value;
                 OnPropertyChanged(nameof(Document));
-            }
-        }
-        public string? Title
-        {
-            get => ttl;
-            set
-            {
-                ttl = value;
-                OnPropertyChanged(nameof(Title));
             }
         }
         public string? OKButtonText
@@ -92,7 +82,6 @@ namespace FamilyCreate.ViewModels
         public EditDocumentViewModel()
         {
             File = new Models.File();
-            Title = "Добавление документа";
             Document = new Document()
             {
                 AddDate = System.DateTime.Now
@@ -104,12 +93,15 @@ namespace FamilyCreate.ViewModels
         {
             this.tree = tree;
             this.parent = parent;
+            parent.Title = "Добавление документа";
+            parent.okButton.Content = "Добавить";
             SourceList = App.DatabaseContext.SourceTable.Select($"SELECT * FROM SOURCES WHERE TREEID = {tree.ID};");
         }
 
         public EditDocumentViewModel(EditDocumentView parent, Tree tree, Document document)
         {
-            Title = "Редактирование документа";
+            parent.Title = "Редактирование документа";
+            parent.okButton.Content = "Сохранить";
             this.tree = tree;
             this.parent = parent;
             Document = document;

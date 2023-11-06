@@ -17,15 +17,6 @@ namespace FamilyCreate.ViewModels
                 OnPropertyChanged(nameof(Source));
             }
         }
-        public string? Title
-        {
-            get => ttl;
-            set
-            {
-                ttl = value;
-                OnPropertyChanged(nameof(Title));
-            }
-        }
         public string? OKButtonText
         {
             get => okbuttext;
@@ -40,7 +31,6 @@ namespace FamilyCreate.ViewModels
 
         #region Private Vars
         private string? okbuttext;
-        private string? ttl;
         private readonly Tree tree;
         private Source source;
         private readonly EditSourceView parent;
@@ -49,7 +39,6 @@ namespace FamilyCreate.ViewModels
         #region Constructors
         public EditSourceViewModel()
         {
-            Title = "Добавление источника";
             Source = new Source();
         }
 
@@ -57,11 +46,12 @@ namespace FamilyCreate.ViewModels
         {
             this.tree = tree;
             this.parent = parent;
+            parent.Title = "Добавление источника";
         }
 
         public EditSourceViewModel(EditSourceView parent, Tree tree, Source source)
         {
-            Title = "Редактирование источника";
+            parent.Title = "Редактирование источника";
             this.tree = tree;
             this.parent = parent;
             Source = source;

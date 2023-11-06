@@ -14,19 +14,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="95px"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="35px"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40px"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="{Binding TitleText}" FontSize="15" Grid.RowSpan="3"
-           HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0">
-            <TextBlock.LayoutTransform>
-                <RotateTransform Angle="-90"/>
-            </TextBlock.LayoutTransform>
-        </TextBlock>
-        <GroupBox Grid.Column="1" Header="Основная информация" Height="85px" VerticalAlignment="Top" Margin="5,5,5,5">
+        <GroupBox Header="Основная информация" Height="85px" VerticalAlignment="Top" Margin="5,5,5,5">
             <StackPanel Orientation="Horizontal">
                 <StackPanel HorizontalAlignment="Left" Margin="0,5,5,0" VerticalAlignment="Center">
                     <TextBlock Text="Название"/>
@@ -46,13 +36,12 @@
                 </GroupBox>
             </StackPanel>
         </GroupBox>
-        <GroupBox Grid.Column="1" VerticalAlignment="Stretch" Grid.Row="1" Header="Описание" Margin="5,0,5,0">
+        <GroupBox VerticalAlignment="Stretch" Grid.Row="1" Header="Описание" Margin="5,0,5,0">
             <TextBox Margin="5,5,5,5" Grid.Row="2" Text="{Binding Place.Description}" VerticalAlignment="Stretch" TextWrapping="Wrap"/>
         </GroupBox>
-        <StackPanel Grid.Row="3" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
-            <Button Content="Отмена" Margin="5,5,5,5" Width="110px" Command="{Binding CancelCommand}"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
             <Button Content="{Binding OKButtonText}" Margin="5,5,5,5" Width="110px" Command="{Binding OKCommand}"/>
+            <Button Content="Отмена" Margin="5,5,5,5" Width="70px" Command="{Binding CancelCommand}"/>
         </StackPanel>
-        
     </Grid>
 </Window>

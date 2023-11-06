@@ -75,6 +75,16 @@ namespace FamilyCreate.Models
             Description = desc;
         }
 
-        public override string ToString() => Name!;
+        public override string ToString()
+        {
+            if (this == null)
+            {
+                return "-";
+            }
+            else
+            {
+                return Name!;
+            }
+        }
     }
 }

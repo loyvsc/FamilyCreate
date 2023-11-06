@@ -10,32 +10,22 @@
         <viewmodels:EditSourceViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40px"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="38px"/>
             <RowDefinition Height="*"/>
-            <RowDefinition MinHeight="40px" Height="40px"/>
+            <RowDefinition Height="35px"/>
         </Grid.RowDefinitions>
        
-        <TextBlock Text="Название источника" Grid.Column="1"/>
-        <TextBox Text="{Binding Source.Name}" Margin="0,20,0,0" Grid.Column="1"/>
-        <TextBlock Text="{Binding Title}" FontSize="15" Grid.Column="0" Grid.RowSpan="3" Height="40px" TextAlignment="Right"
-                   HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,5,0,0" Background="Yellow">
-            <TextBlock.LayoutTransform>
-                <RotateTransform Angle="-90"/>
-            </TextBlock.LayoutTransform>
-        </TextBlock>
+        <TextBlock Margin="5,0,5,0" Text="Название источника"/>
+        <TextBox Margin="5,20,5,0" Text="{Binding Source.Name}"/>
 
-        <TextBlock Grid.Column="1" Grid.Row="1" Text="Описание источника"/>
-        <TextBox Margin="0,15,3,0" VerticalAlignment="Stretch" Grid.Row="1"
-                 Text="{Binding Source.Text, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" TextWrapping="Wrap"/>
+        <TextBlock Margin="5,0,5,0" Grid.Row="1" Text="Описание источника"/>
+        <TextBox Margin="5,15,5,0" VerticalAlignment="Stretch" Grid.Row="1"
+                 Text="{Binding Source.Text, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,8,0">
-            <Button Content="Отмена" Width="120px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
-            <Button Content="Сохранить изменения" Width="125px" Margin="5,5,5,5" Command="{Binding OKButtonCommand}"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,8,0">
+            <Button Content="Сохранить" Width="110px" Margin="5,5,5,5" Command="{Binding OKButtonCommand}"/>
+            <Button Content="Отмена" Width="70px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

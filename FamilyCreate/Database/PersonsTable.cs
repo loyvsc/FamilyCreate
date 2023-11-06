@@ -41,15 +41,18 @@ namespace FamilyCreate.Database
 
         public Person ElementAt(int id)
         {
-            _connection.OpenAsync().Wait();
-            using (MySqlCommand command = _connection.CreateCommand())
+            Person pers = new Person();
+            var con = new MySqlConnection(DatabaseContext.ConnectionString);
+            con.Open();
+            using (MySqlCommand command = con.CreateCommand())
             {
                 command.CommandText = $"SELECT * FROM Persons WHERE ID = {id};";
                 MySqlDataReader reader = command.ExecuteReader();
-                Person pers = ReadValue(reader);
-                _connection.CloseAsync().Wait();
-                return pers;
+                reader.Read();
+                if (reader.HasRows) pers = ReadValue(reader);
             }
+            con.Close();
+            return pers;
         }
 
         public void Remove(Person item) => RemoveAt(item.ID);
@@ -58,7 +61,7 @@ namespace FamilyCreate.Database
 
         public List<Person> Select(string query)
         {
-            _connection.OpenAsync().Wait();
+            _connection.Open();
             using (MySqlCommand command = new MySqlCommand(query, _connection))
             {
                 List<Person> list = new List<Person>();
@@ -67,22 +70,44 @@ namespace FamilyCreate.Database
                 {
                     list.Add(ReadValue(reader));
                 }
-                _connection.CloseAsync().Wait();
+                _connection.Close();
                 return list;
             }
         }
 
         public List<Person> ToList() => Select("SELECT * FROM Persons;");
 
-        public void Update(Person item) =>
-            App.DatabaseContext!.Query($"UPDATE Persons SET Name = '{item.Name}', Surname = '{item.Surname}'," +
-                $"Patronomyc = '{item.Patronomyc}',borndate = '{item.BornDate}',bornplaceid={item.BornPlaceID}," +
-                $"deathdate = '{item.DeathDate}',deathplaceid={item.DeathPlaceID},ismale={(item.IsMale ? 1 : 0)}," +
-                $"fatherid = {item.FatherID}, motherid = {item.MotherID} WHERE ID = {item.ID};");
+        public void Update(Person item)
+        {
+            _connection.Open();
+            string deathplaceid = item.DeathPlaceID == null ? "NULL" : item.DeathPlaceID.ToString();
+            string deathdatge = item.DeathDate == null ? "NULL" : $"'{item.DeathDate.Value.ToMySQLDateString()}'";
+            using (MySqlCommand command = new MySqlCommand($"UPDATE Persons SET ismale=@ismale, Name = '{item.Name}', Surname = '{item.Surname}'," +
+                $"Patronomyc = '{item.Patronomyc}',borndate = '{item.BornDate.Value.ToMySQLDateString()}',bornplaceid={item.BornPlaceID}," +
+                $"deathdate = {deathdatge},deathplaceid={deathplaceid}, fatherid = {item.FatherID}, motherid = {item.MotherID} WHERE ID = {item.ID};", _connection))
+            {
+                command.Parameters.AddWithValue("@ismale", (item.IsMale ? 1 : 0));
+                command.ExecuteNonQuery();
+            }
+            _connection.Close();
+        }
 
-        private Person ReadValue(MySqlDataReader reader) =>
-            new Person(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3),
-                reader.GetString(4), reader.GetDateTime(5), reader.GetInt32(6), (reader.IsDBNull(7) ? null : reader.GetDateTime(7)),
-                reader.IsDBNull(8) ? null : reader.GetInt32(8), reader.GetBoolean(9), (reader.IsDBNull(10) ? 0 : reader.GetInt32(10)), reader.IsDBNull(11) ? 0 : reader.GetInt32(11));
+        private Person ReadValue(MySqlDataReader reader)
+        {
+            Person personReaded = new Person();
+            personReaded.ID = (int) reader[0];
+            personReaded.RodID = (int)reader[1];
+            personReaded.Name = (string)reader[2];
+            personReaded.Surname = (string)reader[3];
+            personReaded.Patronomyc = (string)reader[4];
+            personReaded.BornDate = reader.IsDBNull(5) ? null : (DateTime)reader[5];
+            personReaded.BornPlaceID = reader.IsDBNull(6) ? null : (int)reader[6];
+            personReaded.DeathDate = reader.IsDBNull(7) ? null : (DateTime)reader[7];
+            personReaded.DeathPlaceID = reader.IsDBNull(8) ? null : (int)reader[8];
+            personReaded.IsMale = (bool)reader[9];
+            personReaded.FatherID = reader.IsDBNull(10) ? 0 : (int)reader[10];
+            personReaded.MotherID = reader.IsDBNull(11) ? 0 : (int)reader[11];
+            return personReaded;
+        }
     }
 }

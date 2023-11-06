@@ -47,16 +47,6 @@ namespace FamilyCreate.ViewModels
             }
         }
 
-        public string? TitleText
-        {
-            get => titleText;
-            set
-            {
-                titleText = value;
-                OnPropertyChanged(nameof(TitleText));
-            }
-        }
-
         public string? ButtonText
         {
             get => buttonText;
@@ -90,7 +80,6 @@ namespace FamilyCreate.ViewModels
         private List<Tree>? trees;
         private string? descTxt;
         private ICommand butCom;
-        private string? titleText;
         private string? buttonText;
         private Tree? newTree;
         private Visibility isCreateBoxEnabled;
@@ -106,7 +95,7 @@ namespace FamilyCreate.ViewModels
             {
                 ButtonCommand = new RelayCommand(SelectCreatedTree);
                 Trees = App.DatabaseContext.TreeTable.ToList();
-                TitleText = "Открытие дерева";
+                parentWindow.Title = "Открытие дерева";
                 ButtonText = "Открыть дерево";
                 DescriptionText = "Выберите дерево";
                 IsCreateBoxEnabled = Visibility.Collapsed;
@@ -115,7 +104,7 @@ namespace FamilyCreate.ViewModels
             else
             {
                 ButtonCommand = new RelayCommand(CreateNewTree);
-                TitleText = "Создание нового дерева";
+                parentWindow.Title = "Создание дерева";
                 DescriptionText = "Название нового дерева";
                 ButtonText = "Создать дерево";
                 IsCreateBoxEnabled = Visibility.Visible;
@@ -135,7 +124,7 @@ namespace FamilyCreate.ViewModels
                 App.DatabaseContext?.TreeTable.Add(NewTree);
                 NewTree.ID = App.DatabaseContext!.TreeTable.GetIDByItem(NewTree);
                 StaticValues.AddTree = newTree;
-                parentWindow!.DialogResult = true;
+                parentWindow.DialogResult = true;
             }
         }
 

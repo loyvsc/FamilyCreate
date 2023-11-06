@@ -20,20 +20,9 @@ namespace FamilyCreate.ViewModels
         public int CurrentTreeID { get; set; }
         public EditRodView Parent { get; set; }
 
-        public string Title
-        {
-            get => title;
-            set
-            {
-                title = value;
-                OnPropertyChanged(nameof(Title));
-            }
-        }
-
         public ICommand AddNoteCommand => new RelayCommand(AddNote);
         public ICommand CancelCommand => new RelayCommand((object obj) => Parent.DialogResult = true);
 
-        private string title;
         private Rod curNot;
 
         public EditRodViewModel() { }
@@ -42,13 +31,13 @@ namespace FamilyCreate.ViewModels
         {
             if (currentNote == null)
             {
-                Title = "Добавление рода";
+                parent.Title = "Добавление рода";
                 CurrentRod = new Rod();
             }
             else
             {
                 CurrentRod = currentNote;
-                Title = "Редактирование рода";
+                parent.Title = "Редактирование рода";
             }
             CurrentTreeID = currentTree.ID;
             Parent = parent;
@@ -58,7 +47,7 @@ namespace FamilyCreate.ViewModels
         {
             if (!CurrentRod.IsValid)
             {
-                MessageBox.Show("Введите всю информацию о роду!", Title, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введите всю информацию о роду!", Parent.Title, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (CurrentRod.ID == -1)

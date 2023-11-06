@@ -72,10 +72,14 @@ namespace FamilyCreate.Database
                 EventActorsTable.CreateTableQuery + PlaceTable.CreateTableQuery + EventTable.CreateTableQuery +
                 DocumentTable.CreateTableQuery + NoteTable.CreateTableQuery + SourceTable.CreateTableQuery + FileTable.CreateTableQuery);
             CreateFKS();
+            CreateViews();
         }
 
         private void CreateFKS() => Query("ALTER TABLE Rods ADD FOREIGN KEY (TreeID) REFERENCES Trees(ID);" +
             "");
+        private void CreateViews() =>
+            Query("CREATE VIEW fathers AS SELECT * FROM PERSONS WHERE ISMALE = 1;"+
+                "CREATE VIEW mothers AS SELECT * FROM PERSONS WHERE ISMALE = 0;");
 
         public void Query(string query)
         {

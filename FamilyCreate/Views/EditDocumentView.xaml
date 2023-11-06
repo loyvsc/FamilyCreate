@@ -4,14 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:FamilyCreate.ViewModels"
-        mc:Ignorable="d" Title="{Binding Title}" Width="30" SizeToContent="WidthAndHeight"
+        mc:Ignorable="d" Title="" Width="30" SizeToContent="WidthAndHeight"
         MinHeight="300px" MinWidth="350" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner">
     <Window.DataContext>
         <viewmodels:EditDocumentViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40px"/>
             <ColumnDefinition Width="270px"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -19,18 +18,10 @@
             <RowDefinition Height="80px"/>
             <RowDefinition Height="35px"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="35px"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.RowSpan="3" Background="Yellow">
-            <TextBlock Text="{Binding Title}" FontSize="15" Grid.Column="0" Grid.RowSpan="3" Height="40px" Margin="0,5,0,0" VerticalAlignment="Top" HorizontalAlignment="Right">
-                <TextBlock.LayoutTransform>
-                    <RotateTransform Angle="-90"/>
-                </TextBlock.LayoutTransform>
-            </TextBlock>
-        </Grid>
-
-        <GroupBox Grid.Column="1" Header="Файл" Margin="5,5,0,5">
+        <GroupBox Header="Файл" Margin="5,5,0,5">
             <StackPanel Orientation="Vertical">
                 <TextBlock Margin="5,0,0,0" Text="{Binding File.Name,UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
@@ -41,7 +32,7 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Grid.Column="2" Header="Дополнительная информация" Margin="0,5,5,5">
+        <GroupBox Grid.Column="1" Header="Дополнительная информация" Margin="0,5,5,5">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <TextBlock Text="Источник"/>
                 <ComboBox ItemsSource="{Binding SourceList}" DisplayMemberPath="Name"
@@ -49,17 +40,17 @@
             </StackPanel>
         </GroupBox>
 
-        <TextBlock Text="Название документа" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Document.Name}" Grid.Row="1" Grid.Column="1" Margin="5,15,5,0" Grid.ColumnSpan="2"/>
+        <TextBlock Text="Название документа" Grid.Row="1" Margin="5,0,0,0"/>
+        <TextBox Text="{Binding Document.Name}" Grid.Row="1" Grid.Column="0" Margin="5,15,5,0" Grid.ColumnSpan="2"/>
 
-        <TextBlock Text="Описание документа" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding Document.Text}" Grid.Row="2" Grid.Column="1" Margin="5,15,5,20" Grid.ColumnSpan="2"/>
-        <TextBlock Text="{Binding AddDateText}" Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
+        <TextBlock Text="Описание документа" Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding Document.Text}" Grid.Row="2" Grid.Column="0" Margin="5,15,5,20" Grid.ColumnSpan="2"/>
+        <TextBlock Text="{Binding AddDateText}" Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal"
                     HorizontalAlignment="Right" Margin="0,0,8,0" Grid.ColumnSpan="2">
-            <Button Content="Отмена" Width="120px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
-            <Button Content="Сохранить изменения" Width="125px" Margin="5,5,5,5" Command="{Binding OKButtonCommand}"/>
+            <Button Content="Сохранить" Width="110px" Margin="5,5,5,5" x:Name="okButton" Command="{Binding OKButtonCommand}"/>
+            <Button Content="Отмена" Width="70px" Margin="5,5,5,5" x:Name="cancelButton" Command="{Binding CancelCommand}"/>
         </StackPanel>
 
         

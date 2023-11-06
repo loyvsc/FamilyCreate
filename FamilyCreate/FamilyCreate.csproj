@@ -29,11 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.5" />
+    <PackageReference Include="GraphX" Version="3.0.0" />
     <PackageReference Include="MySqlConnector" Version="2.2.7" />
   </ItemGroup>
 

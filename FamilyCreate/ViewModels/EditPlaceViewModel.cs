@@ -18,31 +18,18 @@ namespace FamilyCreate.ViewModels
             }
         }
         public Place Place { get; private set; }
-        public EditPlaceView? View { get; private set; }
-
-        private string titletext;
-
-        public string TitleText
-        {
-            get => titletext;
-            set
-            {
-                titletext = value;
-                OnPropertyChanged(nameof(TitleText));
-            }
-        }
-
+        public EditPlaceView? View { get; private set; }      
         #region Constructors
         public EditPlaceViewModel()
         {
             Place = new Place();
             OKButtonText = "Добавить";
-            TitleText = "Добавление места";
         }
 
         public EditPlaceViewModel(EditPlaceView view) : this()
         {
             View = view;
+            View.Title = "Добавление места";
         }
 
         public EditPlaceViewModel(EditPlaceView view, Place place)
@@ -50,7 +37,7 @@ namespace FamilyCreate.ViewModels
             View = view;
             Place = place;
             OKButtonText = "Сохранить";
-            TitleText = "Редактирование места";
+            View.Title = "Редактирование места";
         }
         #endregion
 
@@ -58,7 +45,7 @@ namespace FamilyCreate.ViewModels
         {
             if (!Place.IsValid)
             {
-                MessageBox.Show("Введите всю информацию о месте!", TitleText, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введите всю информацию о месте!", View.Title, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (Place.ID != -1)

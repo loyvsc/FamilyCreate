@@ -4,35 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:FamilyCreate.ViewModels"
-        mc:Ignorable="d" Title="{Binding Title}" WindowStartupLocation="CenterOwner"
-        MinHeight="200px" MinWidth="305px" ResizeMode="CanResize" SizeToContent="WidthAndHeight" Width="305">
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
+        MinHeight="110px" MinWidth="305px" ResizeMode="CanResize" SizeToContent="WidthAndHeight" Width="305">
     <Window.DataContext>
         <viewmodels:EditRodViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40px"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="35px"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="{Binding Title}" FontSize="15" Grid.Column="0"
-                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0">
-            <TextBlock.LayoutTransform>
-                <RotateTransform Angle="-90"/>
-            </TextBlock.LayoutTransform>
-        </TextBlock>
+        <StackPanel VerticalAlignment="Top" Margin="5,0,5,0">
+            <TextBlock Text="Название рода"/>
+            <TextBox Height="20" 
+         Text="{Binding CurrentRod.Name, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
 
-        <TextBlock Grid.Column="1" Margin="0,50px,0,0" Text="Название рода"/>
-        <TextBox Margin="0,65px,3,0" Height="20" VerticalAlignment="Top"
-                 Text="{Binding CurrentRod.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
-
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-            <Button Content="Отменить изменения" Width="120px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
-            <Button Content="Сохранить изменения" Width="125px" Margin="5,5,5,5" Command="{Binding AddNoteCommand}"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Сохранить" Width="110px" Margin="5,5,5,5" Command="{Binding AddNoteCommand}"/>
+            <Button Content="Отмена" Width="70px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

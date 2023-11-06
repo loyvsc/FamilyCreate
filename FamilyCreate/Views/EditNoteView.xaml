@@ -9,35 +9,24 @@
     <Window.DataContext>
         <viewmodels:EditNoteViewModel/>
     </Window.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40px"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid Margin="5,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="35px"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="40px"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35px"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="{Binding Title}" FontSize="15" Grid.Column="0" Grid.RowSpan="3"
-                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0">
-            <TextBlock.LayoutTransform>
-                <RotateTransform Angle="-90"/>
-            </TextBlock.LayoutTransform>
-        </TextBlock>
-
-        <TextBlock Text="Название заметки" Grid.Column="1"/>
+        <TextBlock Text="Название заметки"/>
         <TextBox Margin="0,15,3,0" VerticalAlignment="Stretch"
                  Text="{Binding CurrentNote.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" TextWrapping="Wrap"/>
 
-        <TextBlock Grid.Column="1" Text="Текст заметки" Grid.Row="1"/>
+        <TextBlock Text="Текст заметки" Grid.Row="1"/>
         <TextBox Margin="0,15,3,0" VerticalAlignment="Stretch" Grid.Row="1"
                  Text="{Binding CurrentNote.Text, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" TextWrapping="Wrap"/>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,8,0">
-            <Button Content="Отменить изменения" Width="120px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
-            <Button Content="Сохранить изменения" Width="125px" Margin="5,5,5,5" Command="{Binding AddNoteCommand}"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,8,0">
+            <Button Content="Сохранить изменения" Width="130px" Margin="5,5,5,5" Command="{Binding AddNoteCommand}"/>
+            <Button Content="Отмена" Width="70px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

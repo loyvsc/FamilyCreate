@@ -5,23 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodel="clr-namespace:FamilyCreate.ViewModels"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="{Binding TitleText}" Height="220" Width="200" ResizeMode="NoResize">
+        Height="120" Width="220" ResizeMode="NoResize">
     <Window.DataContext>
         <viewmodel:CreateTreeViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40px"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <TextBlock Text="{Binding TitleText}" FontSize="15" Grid.Column="0"
-                   HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0">
-            <TextBlock.LayoutTransform>
-                <RotateTransform Angle="-90"/>
-            </TextBlock.LayoutTransform>
-        </TextBlock>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,25,0,0" Grid.Column="1">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Column="1">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Margin" Value="0,0,0,10"/>
@@ -30,10 +19,12 @@
                     <Setter Property="Margin" Value="0,0,0,10"/>
                 </Style>
             </StackPanel.Resources>
-            <TextBlock FontSize="13" Text="{Binding DescriptionText}" Margin="0,0,0,0"/>
+            <TextBlock FontSize="13" Text="{Binding DescriptionText}" Margin="5,0,0,0"/>
             
-            <TextBox Visibility="{Binding IsCreateBoxEnabled}" Text="{Binding NewTree.Name, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
-            <ComboBox Visibility="{Binding IsOpenBoxEnabled}" ItemsSource="{Binding Trees}" SelectedValue="{Binding NewTree,UpdateSourceTrigger=PropertyChanged}" Width="120">
+            <TextBox Visibility="{Binding IsCreateBoxEnabled}" Text="{Binding NewTree.Name, UpdateSourceTrigger=PropertyChanged}"
+                     Width="160"/>
+            <ComboBox Visibility="{Binding IsOpenBoxEnabled}" ItemsSource="{Binding Trees}"
+                      SelectedValue="{Binding NewTree,UpdateSourceTrigger=PropertyChanged}" Width="160">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"/>
@@ -41,7 +32,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <Button Content="{Binding ButtonText}" Margin="0,0,5,0" Command="{Binding ButtonCommand}"/>
+            <Button Content="{Binding ButtonText}"  HorizontalAlignment="Stretch" Margin="0,5,0,0" Command="{Binding ButtonCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

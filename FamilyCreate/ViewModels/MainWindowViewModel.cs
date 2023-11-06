@@ -1,8 +1,5 @@
-﻿using FamilyCreate.Database;
-using FamilyCreate.Models;
+﻿using FamilyCreate.Models;
 using FamilyCreate.Views;
-using Shields.GraphViz.Components;
-using Shields.GraphViz.Services;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -261,7 +258,9 @@ namespace FamilyCreate.ViewModels
 
         private void CreateTree(object obj)
         {
-
+            TreeViewerView tree = new TreeViewerView(CurrentTree);
+            tree.ShowDialog();
+            PersonsList = App.DatabaseContext.PersonsTable.ToList();
         }
 
         private void SaveTree(object obj)
@@ -329,8 +328,6 @@ namespace FamilyCreate.ViewModels
                     }
             }
         }
-
-        private ITable seldgv;
 
         private void Edit(object obj)
         {

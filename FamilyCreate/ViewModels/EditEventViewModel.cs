@@ -9,15 +9,6 @@ namespace FamilyCreate.ViewModels
 {
     public class EditEventViewModel : NotifyPropertyChangedBase
     {
-        public string? Title
-        {
-            get => title;
-            set
-            {
-                title = value;
-                OnPropertyChanged(nameof(Title));
-            }
-        }
         private string okbutTxt;
         public string OKButtonText
         {
@@ -64,7 +55,6 @@ namespace FamilyCreate.ViewModels
                 OnPropertyChanged(nameof(Rods));
             }
         }
-
         public int SelectedPlaceIndex
         {
             get => selplcinx;
@@ -163,8 +153,8 @@ namespace FamilyCreate.ViewModels
             SelectedPlaceIndex = -1;
             CurrentTreeID = currentTree.ID;
             Rods = App.DatabaseContext.RodsTable.Select($"SELECT * FROM RODS WHERE TREEID={CurrentTreeID};");
-            Title = "Добавление события";
             parentWindow = view;
+            parentWindow.Title = "Добавление события";
         }
 
         public EditEventViewModel(EditEventView view, Tree currentTree, Event person)
@@ -183,8 +173,8 @@ namespace FamilyCreate.ViewModels
                     if (index!=-1) PersonsList.RemoveAt(index);
                 }
                 parentWindow.persList.Items.Refresh();
-            }            
-            Title = "Редактирование события";
+            }
+            parentWindow.Title = "Редактирование события";
             OKButtonText = "Сохранить";
             PersonsAddList = person.EventPerons;
 
