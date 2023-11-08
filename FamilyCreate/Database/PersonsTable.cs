@@ -30,13 +30,16 @@ namespace FamilyCreate.Database
             string deathParams = (item.DeathDate != null && item.DeathPlaceID != null) ? "DEATHDATE,DEATHPLACEID," : "";
             string deathValues = (item.DeathDate != null && item.DeathPlaceID != null) ? $"'{item.DeathDate?.ToMySQLDateString()}',{item.DeathPlaceID}," : "";
 
-            string fatmatParams = (item.FatherID != -1 && item.MotherID != -1) ? ",FATHERID,MOTHERID" : "";
-            string fatmatValues = (item.FatherID != -1 && item.MotherID != -1) ? $",{item.FatherID},{item.MotherID}" : "";
+            string farparams = item.FatherID != -1 ? ",FATHERID" : "";
+            string motparams = item.MotherID != -1 ? ",MOTHERID" : "";
+
+            string fatvalues = item.FatherID != -1 ? $",{item.FatherID}" : "";
+            string matvalues = item.MotherID != -1 ? $",{item.MotherID}" : "";
 
             App.DatabaseContext?.Query("INSERT INTO Persons (RODID, NAME, SURNAME, PATRONOMYC," +
-        $"BORNDATE,BORNPLACEID,{deathParams}ISMALE{fatmatParams}) VALUES (" +
+        $"BORNDATE,BORNPLACEID,{deathParams}ISMALE{farparams}{motparams}) VALUES (" +
         $"{item.RodID},'{item.Name}','{item.Surname}','{item.Patronomyc}','{item.BornDate?.ToMySQLDateString()}',{item.BornPlaceID}," +
-        $"{deathValues} {item.IsMale}{fatmatValues});");
+        $"{deathValues} {item.IsMale}{fatvalues}{matvalues});");
         }
 
         public Person ElementAt(int id)

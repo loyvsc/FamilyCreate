@@ -59,7 +59,7 @@
         </GroupBox>
 
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Grid.ColumnSpan="3" Orientation="Horizontal">
-            <Button Content="Сохранить" Width="110px" Margin="5,5,5,5" Command="{Binding OKCommand}"/>
+            <Button Content="{Binding OKButtonText}" Width="110px" Margin="5,5,5,5" Command="{Binding OKCommand}"/>
             <Button Content="Отмена" Width="70px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>

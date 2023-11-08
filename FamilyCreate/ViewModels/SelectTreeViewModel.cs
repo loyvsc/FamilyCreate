@@ -52,19 +52,15 @@ namespace FamilyCreate.ViewModels
         private void Add(object obj)
         {
             CreateTreeView create = new CreateTreeView();
-            if (create.ShowDialog() == true)
-            {
-                TreesList = App.DatabaseContext.TreeTable.ToList();
-            }
+            create.ShowDialog();
+            TreesList = App.DatabaseContext.TreeTable.ToList();
         }
 
         private void Edit(object obj)
         {
             CreateTreeView create = new CreateTreeView(SelectedTree);
-            if (create.ShowDialog() == true)
-            {
-                TreesList = App.DatabaseContext.TreeTable.ToList();
-            }
+            create.ShowDialog();
+            TreesList = App.DatabaseContext.TreeTable.ToList();
         }
 
         private void Delete(object obj)

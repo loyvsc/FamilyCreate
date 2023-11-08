@@ -25,6 +25,17 @@ namespace FamilyCreate.ViewModels
         public ICommand CancelCommand => new RelayCommand((object obj) => Parent.DialogResult = true);
 
         private Note curNot;
+        private string buttxt;
+
+        public string OKButtonText
+        {
+            get => buttxt;
+            set
+            {
+                buttxt = value;
+                OnPropertyChanged(nameof(OKButtonText));
+            }
+        }
 
         public EditNoteViewModel() { }
 
@@ -33,12 +44,14 @@ namespace FamilyCreate.ViewModels
             if (currentNote == null)
             {
                 parent.Title = "Написание заметки";
+                OKButtonText = "Добавить";
                 CurrentNote = new Note();
             }
             else
             {
                 CurrentNote = currentNote;
                 parent.Title = "Редактирование заметки";
+                OKButtonText = "Сохранить";
             }
             CurrentTreeID = currentTree.ID;
             Parent = parent;

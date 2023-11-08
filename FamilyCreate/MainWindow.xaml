@@ -26,7 +26,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Дерево" Command="{Binding OpenTreeCommand}"/>
+            <MenuItem Header="Деревья" Command="{Binding OpenTreeCommand}"/>
             <MenuItem Header="Справка">
                 <MenuItem Header="О программе" Command="{Binding AboutCommand}"/>
             </MenuItem>
@@ -64,7 +64,11 @@
                         <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
                             <StackPanel Orientation="Horizontal">
                                 <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
-                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center"
+                                           HorizontalAlignment="Left">
+                                    Визуализировать <LineBreak/>
+                                    дерево
+                                </TextBlock>
                             </StackPanel>
                         </Button>
                         <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
@@ -123,7 +127,11 @@
                         <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
                             <StackPanel Orientation="Horizontal">
                                 <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
-                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        Визуализировать
+                                        <LineBreak/>
+                                        дерево
+                                </TextBlock>
                             </StackPanel>
                         </Button>
                         <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
@@ -174,7 +182,9 @@
                         <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
                             <StackPanel Orientation="Horizontal">
                                 <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
-                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    Визуализировать <LineBreak/> дерево
+                                </TextBlock>
                             </StackPanel>
                         </Button>
                         <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
@@ -227,7 +237,9 @@
                         <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
                             <StackPanel Orientation="Horizontal">
                                 <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
-                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    Визуализировать <LineBreak/> дерево
+                                </TextBlock>
                             </StackPanel>
                         </Button>
                         <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
@@ -277,7 +289,11 @@
                         <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
                             <StackPanel Orientation="Horizontal">
                                 <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
-                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        Визуализировать
+                                        <LineBreak/>
+                                        дерево
+                                </TextBlock>
                             </StackPanel>
                         </Button>
                         <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
@@ -330,7 +346,9 @@
                         <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
                             <StackPanel Orientation="Horizontal">
                                 <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
-                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    Визуализировать <LineBreak/>дерево
+                                </TextBlock>
                             </StackPanel>
                         </Button>
                         <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
@@ -382,7 +400,9 @@
                         <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
                             <StackPanel Orientation="Horizontal">
                                 <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
-                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    Визуализировать <LineBreak/> дерево
+                                </TextBlock>
                             </StackPanel>
                         </Button>
                         <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
@@ -398,6 +418,16 @@
                             <DataGridTextColumn Width="40" Header="ID" Binding="{Binding ID}"/>
                             <DataGridTextColumn Width="140" Header="Название" Binding="{Binding Name}"/>
                             <DataGridTextColumn Width="140" Header="Описание" Binding="{Binding Text}"/>
+                            <DataGridTemplateColumn Header="Файл" Width="230">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <Button BorderThickness="1" Command="{Binding SaveFileCommand}" Content="Сохранить файл"/>
+                                            <Button BorderThickness="1" Command="{Binding ViewFileCommand}" Margin="5,0,0,0" Content="Просмотреть файл"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Width="140" Header="Дата добавления" Binding="{Binding AddDateAsString}"/>
                         </DataGrid.Columns>
                     </DataGrid>

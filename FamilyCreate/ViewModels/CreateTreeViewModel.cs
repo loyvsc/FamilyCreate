@@ -7,7 +7,7 @@ namespace FamilyCreate.ViewModels
 {
     public class CreateTreeViewModel : NotifyPropertyChangedBase
     {
-        public Tree? NewTree
+        public Tree NewTree
         {
             get => newTree;
             set
@@ -58,7 +58,7 @@ namespace FamilyCreate.ViewModels
         private string? descTxt;
         private ICommand butCom;
         private string? buttonText;
-        private Tree? newTree;
+        private Tree newTree;
         private readonly Window? parentWindow;
 
         public CreateTreeViewModel() => NewTree = new Tree();
@@ -87,27 +87,27 @@ namespace FamilyCreate.ViewModels
 
         private void CreateNewTree(object obj)
         {
-            if (NewTree!.IsValid)
-            {
-                MessageBox.Show("Введите название дерева!", "Создание дерева", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            else
+            if (NewTree.IsValid)
             {
                 App.DatabaseContext.TreeTable.Add(NewTree);
                 parentWindow!.DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Введите название дерева!", "Создание дерева", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void SelectCreatedTree(object obj)
         {
-            if (NewTree!.IsValid)
+            if (NewTree.IsValid)
             {
                 App.DatabaseContext.TreeTable.Update(NewTree);
                 parentWindow!.DialogResult = true;
             }
             else
             {
-                MessageBox.Show("Введите новое название дерева!", "Редактирование дерева", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Введите новое название дерева!", "Редактирование дерева", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

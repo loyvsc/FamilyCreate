@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <GroupBox Header="Основная информация" Height="85px" VerticalAlignment="Top" Margin="5,5,5,5">
             <StackPanel Orientation="Horizontal">
-                <StackPanel HorizontalAlignment="Left" Margin="0,5,5,0" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Left" Margin="0,6,5,0" VerticalAlignment="Center">
                     <TextBlock Text="Название"/>
                     <TextBox Text="{Binding Place.Name}" Width="120px"/>
                 </StackPanel>

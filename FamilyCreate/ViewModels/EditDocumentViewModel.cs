@@ -2,6 +2,7 @@
 using FamilyCreate.Views;
 using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -39,7 +40,7 @@ namespace FamilyCreate.ViewModels
             }
         }
 
-        public string AddDateText => Document.ID != -1 ? "Дата добавления: "+ Document.AddDate.ToShortDateString() : "";
+        public string AddDateText => Document.ID != -1 ? "Дата добавления: " + Document.AddDate.ToShortDateString() : "";
         public List<Source> SourceList
         {
             get => srclst;
@@ -124,11 +125,11 @@ namespace FamilyCreate.ViewModels
             }
         }
 
-        private void SaveFile(object obj)
+        public static void SaveFileToPath(Models.File file)
         {
             SaveFileDialog save = new SaveFileDialog()
             {
-                Filter = $"Изначальный формат (*{File.Extension})|*{File.Extension}|Все файлы (*.*)|*.*"
+                Filter = $"Изначальный формат (*{file.Extension})|*{file.Extension}|Все файлы (*.*)|*.*"
             };
             if (save.ShowDialog() == true)
             {
@@ -140,7 +141,7 @@ namespace FamilyCreate.ViewModels
                 {
                     using (System.IO.FileStream fs = new System.IO.FileStream(savePath, FileMode.OpenOrCreate))
                     {
-                        fs.Write(File.FileText, 0, File.FileText.Length);
+                        fs.Write(file.FileText, 0, file.FileText.Length);
                     }
                 }
                 else
@@ -156,13 +157,30 @@ namespace FamilyCreate.ViewModels
                     }
                     using (StreamWriter sw = fi1.CreateText())
                     {
-                        sw.Write(File.FileText);
+                        sw.Write(file.FileText);
                     }
                 }
 
                 MessageBox.Show("Файл успешно сохранен!", "Сохранение файла", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        public static void ViewFile(Models.File file)
+        {
+            string savePath = Path.GetTempFileName() + file.Extension;
+
+            using (System.IO.FileStream fs = new System.IO.FileStream(savePath, FileMode.OpenOrCreate))
+            {
+                fs.Write(file.FileText, 0, file.FileText.Length);
+            }
+
+            var proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = savePath;
+            proc.StartInfo.UseShellExecute = true;
+            proc.Start();
+        }
+
+        private void SaveFile(object obj) => SaveFileToPath(File);
 
         public void SetFile(string filename, byte[] data, string extension)
         {

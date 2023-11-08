@@ -1,10 +1,16 @@
 ﻿using FamilyCreate.Database;
+using FamilyCreate.ViewModels;
 using System;
+using System.Windows.Input;
 
 namespace FamilyCreate.Models
 {
     public class Document : NotifyPropertyChangedBase, ITable
     {
+        public ICommand SaveFileCommand => new RelayCommand((object obj) => EditDocumentViewModel.SaveFileToPath(File));
+        public ICommand ViewFileCommand => new RelayCommand((object obj) => EditDocumentViewModel.ViewFile(File));
+
+
         public int ID { get; set; }
         public int TreeID
         {

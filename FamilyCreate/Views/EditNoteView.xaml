@@ -25,7 +25,7 @@
                  Text="{Binding CurrentNote.Text, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" TextWrapping="Wrap"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,8,0">
-            <Button Content="Сохранить изменения" Width="130px" Margin="5,5,5,5" Command="{Binding AddNoteCommand}"/>
+            <Button Content="{Binding OKButtonText}" Width="130px" Margin="5,5,5,5" Command="{Binding AddNoteCommand}"/>
             <Button Content="Отмена" Width="70px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>

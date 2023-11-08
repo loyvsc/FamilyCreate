@@ -59,18 +59,6 @@ namespace FamilyCreate.Models
             Name = string.Empty;
         }
 
-        public static bool operator == (Source left, Source right)
-        {
-            return left.ID == right.ID && left.AddDate == right.AddDate
-                && left.Name == right.Name && left.Text == right.Text;
-        }
-
-        public static bool operator !=(Source left, Source right)
-        {
-            return left.ID != right.ID || left.AddDate != right.AddDate
-                || left.Name != right.Name || left.Text != right.Text;
-        }
-
         public Source(int iD, int treeID, string text, DateTime addDate, string name)
         {
             ID = iD;

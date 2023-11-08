@@ -47,11 +47,13 @@ namespace FamilyCreate.ViewModels
             this.tree = tree;
             this.parent = parent;
             parent.Title = "Добавление источника";
+            OKButtonText = "Добавить";
         }
 
         public EditSourceViewModel(EditSourceView parent, Tree tree, Source source)
         {
             parent.Title = "Редактирование источника";
+            OKButtonText = "Сохранить";
             this.tree = tree;
             this.parent = parent;
             Source = source;

@@ -24,6 +24,17 @@ namespace FamilyCreate.ViewModels
         public ICommand CancelCommand => new RelayCommand((object obj) => Parent.DialogResult = true);
 
         private Rod curNot;
+        private string buttxt;
+
+        public string OKButtonText
+        {
+            get => buttxt;
+            set
+            {
+                buttxt = value;
+                OnPropertyChanged(nameof(OKButtonText));
+            }
+        }
 
         public EditRodViewModel() { }
 
@@ -32,12 +43,14 @@ namespace FamilyCreate.ViewModels
             if (currentNote == null)
             {
                 parent.Title = "Добавление рода";
+                OKButtonText = "Добавить";
                 CurrentRod = new Rod();
             }
             else
             {
                 CurrentRod = currentNote;
                 parent.Title = "Редактирование рода";
+                OKButtonText = "Редактировать";
             }
             CurrentTreeID = currentTree.ID;
             Parent = parent;

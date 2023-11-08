@@ -22,7 +22,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Сохранить" Width="110px" Margin="5,5,5,5" Command="{Binding AddNoteCommand}"/>
+            <Button Content="{Binding OKButtonText}" Width="110px" Margin="5,5,5,5" Command="{Binding AddNoteCommand}"/>
             <Button Content="Отмена" Width="70px" Margin="5,5,5,5" Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>

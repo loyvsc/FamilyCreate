@@ -25,7 +25,7 @@
         <svg:SvgViewbox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5" Source="Icons/icon.svg"/>
         <TextBlock Grid.Column="2" Grid.Row="1" Margin="0,8,0,0" TextWrapping="Wrap">
             <TextBlock.Text>
-                Программное средство ''Генеалогическое дерево'' – это программа, предназначеная для составления
+                Программное средство "Генеалогическое дерево" – это программа, предназначеная для составления
                 генеалогического дерева
             </TextBlock.Text>
         </TextBlock>
@@ -39,9 +39,9 @@
     <LineBreak/>
     • СУБД MySQL
     <LineBreak/>
-    • Биботека MySQLConnector (подключение к СУБД MySQL)
+    • Библиотека MySQLConnector (подключение к СУБД MySQL)
     <LineBreak/>
-    • Библиотека GraphX (построение генеалогического дерева)
+    • Библиотека GraphX (визуализация генеалогического дерева)
     <LineBreak/>
     • Библиотека SharpVectors (вывод на экран изображений формата SVG)
             </TextBlock>

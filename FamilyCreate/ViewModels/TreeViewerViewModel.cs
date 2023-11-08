@@ -153,7 +153,7 @@ namespace FamilyCreate.ViewModels
         }
         #endregion
 
-        private void ExportToPNG(object sender) => parent.Area.ExportAsImageDialog(ImageType.PNG, true);
+        private void ExportToPNG(object sender) => parent.Area.ExportAsImageDialog(ImageType.PNG);
 
         private void Print(object sender) => parent.Area.PrintDialog("Печать генеалогического дерева");
     }
