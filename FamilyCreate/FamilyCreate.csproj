@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>False</UseWindowsForms>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>hojo-ujiyasu-family-crest-svgrepo-com.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +14,7 @@
     <None Remove="Icons\edit.svg" />
     <None Remove="Icons\family.svg" />
     <None Remove="Icons\icon.png" />
+    <None Remove="Icons\icon.svg" />
     <None Remove="Icons\print.svg" />
     <None Remove="Icons\refresh.svg" />
     <None Remove="Icons\reload.svg" />
@@ -22,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="icon.ico" />
+    <Content Include="hojo-ujiyasu-family-crest-svgrepo-com.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,7 +57,7 @@
     <Resource Include="Icons\add.svg" />
     <Resource Include="Icons\edit.svg" />
     <Resource Include="Icons\family.svg" />
-    <Resource Include="Views\icon.png" />
+    <Resource Include="Icons\icon.svg" />
     <Resource Include="Icons\print.svg" />
     <Resource Include="Icons\refresh.svg" />
     <Resource Include="Icons\reload.svg" />
