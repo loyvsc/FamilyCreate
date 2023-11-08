@@ -211,7 +211,8 @@ namespace FamilyCreate.ViewModels
         #endregion
 
         #region Commands
-        public ICommand NewTreeCommand => new RelayCommand(CreateNewTree);
+        public ICommand AboutCommand => new RelayCommand(OpenAbout);
+
         public ICommand OpenTreeCommand => new RelayCommand(OpenTree);
         public ICommand SaveTreeCommand => new RelayCommand(SaveTree);
 
@@ -225,26 +226,21 @@ namespace FamilyCreate.ViewModels
         #region CreateOrOpenTreeMethods
         private void OpenTree(object obj)
         {
-            CreateTreeView treeview = new CreateTreeView(true);
+            SelectTreeView treeview = new SelectTreeView();
             if (treeview.ShowDialog() == true)
             {
                 CurrentTree = StaticValues.AddTree;
                 IsTreeCreatedOrOpen = true;
                 LoadValuesAfterGetTree();
-            }
-        }
-
-        private void CreateNewTree(object obj)
-        {
-            CreateTreeView treeview = new CreateTreeView();
-            if (treeview.ShowDialog() == true)
-            {
-                CurrentTree = StaticValues.AddTree;
-                LoadValuesAfterGetTree();
-                IsTreeCreatedOrOpen = true;
             }
         }
         #endregion
+
+        private void OpenAbout(object obj)
+        {
+            AboutProgrammView view = new AboutProgrammView();
+            view.Show();
+        }
 
         private void Print(object obj)
         {

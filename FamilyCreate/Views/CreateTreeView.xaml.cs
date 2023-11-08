@@ -5,10 +5,10 @@ namespace FamilyCreate.Views
 {
     public partial class CreateTreeView : Window
     {
-        public CreateTreeView(bool forOpen = false)
+        public CreateTreeView(Models.Tree? createdTree = null)
         {
             InitializeComponent();
-            this.DataContext = new CreateTreeViewModel(this, forOpen);
+            this.DataContext = new CreateTreeViewModel(this, createdTree);
         }
     }
 }

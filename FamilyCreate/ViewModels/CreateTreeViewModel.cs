@@ -16,27 +16,6 @@ namespace FamilyCreate.ViewModels
                 OnPropertyChanged(nameof(NewTree));
             }
         }
-
-        public Visibility IsOpenBoxEnabled
-        {
-            get => isOpenBoxEnabled;
-            set
-            {
-                isOpenBoxEnabled = value;
-                OnPropertyChanged(nameof(IsOpenBoxEnabled));
-            }
-        }
-
-        public Visibility IsCreateBoxEnabled
-        {
-            get => isCreateBoxEnabled;
-            set
-            {
-                isCreateBoxEnabled = value;
-                OnPropertyChanged(nameof(IsCreateBoxEnabled));
-            }
-        }
-
         public ICommand ButtonCommand
         {
             get => butCom;
@@ -56,7 +35,6 @@ namespace FamilyCreate.ViewModels
                 OnPropertyChanged(nameof(ButtonText));
             }
         }
-
         public string? DescriptionText
         {
             get => descTxt;
@@ -66,7 +44,6 @@ namespace FamilyCreate.ViewModels
                 OnPropertyChanged(nameof(DescriptionText));
             }
         }
-
         public List<Tree>? Trees
         {
             get => trees;
@@ -82,63 +59,55 @@ namespace FamilyCreate.ViewModels
         private ICommand butCom;
         private string? buttonText;
         private Tree? newTree;
-        private Visibility isCreateBoxEnabled;
-        private Visibility isOpenBoxEnabled;
         private readonly Window? parentWindow;
 
         public CreateTreeViewModel() => NewTree = new Tree();
 
-        public CreateTreeViewModel(Window parent, bool forOpen = false)
+        public CreateTreeViewModel(Window parent, Tree? foredit = null)
         {
             parentWindow = parent;
-            if (forOpen)
+            if (foredit != null)
             {
+                NewTree = foredit;
                 ButtonCommand = new RelayCommand(SelectCreatedTree);
                 Trees = App.DatabaseContext.TreeTable.ToList();
-                parentWindow.Title = "Открытие дерева";
-                ButtonText = "Открыть дерево";
-                DescriptionText = "Выберите дерево";
-                IsCreateBoxEnabled = Visibility.Collapsed;
-                IsOpenBoxEnabled = Visibility.Visible;
+                parentWindow.Title = "Редактирование дерева";
+                ButtonText = "Сохранить";
+                DescriptionText = "Введите название дерева";
             }
             else
             {
                 ButtonCommand = new RelayCommand(CreateNewTree);
                 parentWindow.Title = "Создание дерева";
-                DescriptionText = "Название нового дерева";
+                DescriptionText = "Введите название дерева";
                 ButtonText = "Создать дерево";
-                IsCreateBoxEnabled = Visibility.Visible;
-                IsOpenBoxEnabled = Visibility.Collapsed;
                 NewTree = new Tree();
             }
         }
 
         private void CreateNewTree(object obj)
         {
-            if (NewTree!.Name == string.Empty)
+            if (NewTree!.IsValid)
             {
                 MessageBox.Show("Введите название дерева!", "Создание дерева", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             else
             {
-                App.DatabaseContext?.TreeTable.Add(NewTree);
-                NewTree.ID = App.DatabaseContext!.TreeTable.GetIDByItem(NewTree);
-                StaticValues.AddTree = newTree;
-                parentWindow!
-                    .DialogResult = true;
+                App.DatabaseContext.TreeTable.Add(NewTree);
+                parentWindow!.DialogResult = true;
             }
         }
 
         private void SelectCreatedTree(object obj)
         {
-            if (NewTree == null)
+            if (NewTree!.IsValid)
             {
-                MessageBox.Show("Выберите дерево из списка!", "Открытие дерева", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                App.DatabaseContext.TreeTable.Update(NewTree);
+                parentWindow!.DialogResult = true;
             }
             else
             {
-                StaticValues.AddTree = NewTree;
-                parentWindow!.DialogResult = true;
+                MessageBox.Show("Введите новое название дерева!", "Редактирование дерева", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
     }

@@ -6,17 +6,23 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>False</UseWindowsForms>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Icons\add.svg" />
     <None Remove="Icons\edit.svg" />
     <None Remove="Icons\family.svg" />
+    <None Remove="Icons\icon.png" />
     <None Remove="Icons\print.svg" />
     <None Remove="Icons\refresh.svg" />
     <None Remove="Icons\reload.svg" />
     <None Remove="Icons\remove.svg" />
     <None Remove="Icons\report.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +56,7 @@
     <Resource Include="Icons\add.svg" />
     <Resource Include="Icons\edit.svg" />
     <Resource Include="Icons\family.svg" />
+    <Resource Include="Views\icon.png" />
     <Resource Include="Icons\print.svg" />
     <Resource Include="Icons\refresh.svg" />
     <Resource Include="Icons\reload.svg" />

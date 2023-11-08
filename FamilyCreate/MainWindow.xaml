@@ -26,12 +26,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Дерево">
-                <MenuItem Header="Создать" Command="{Binding NewTreeCommand}"/>
-                <MenuItem Header="Открыть существующее" Command="{Binding OpenTreeCommand}"/>
-            </MenuItem>
+            <MenuItem Header="Дерево" Command="{Binding OpenTreeCommand}"/>
             <MenuItem Header="Справка">
-                <MenuItem Header="О программе"/>
+                <MenuItem Header="О программе" Command="{Binding AboutCommand}"/>
             </MenuItem>
         </Menu>
         <TabControl IsEnabled="{Binding IsTreeCreatedOrOpen}" Grid.Row="1"

@@ -21,16 +21,8 @@
             </StackPanel.Resources>
             <TextBlock FontSize="13" Text="{Binding DescriptionText}" Margin="5,0,0,0"/>
             
-            <TextBox Visibility="{Binding IsCreateBoxEnabled}" Text="{Binding NewTree.Name, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding NewTree.Name, UpdateSourceTrigger=PropertyChanged}"
                      Width="160"/>
-            <ComboBox Visibility="{Binding IsOpenBoxEnabled}" ItemsSource="{Binding Trees}"
-                      SelectedValue="{Binding NewTree,UpdateSourceTrigger=PropertyChanged}" Width="160">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
 
             <Button Content="{Binding ButtonText}"  HorizontalAlignment="Stretch" Margin="0,5,0,0" Command="{Binding ButtonCommand}"/>
         </StackPanel>
