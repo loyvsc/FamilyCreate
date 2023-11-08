@@ -43,6 +43,7 @@ namespace FamilyCreate.Models
             }
         }
         public string AddDateAsString => AddDate.Date.ToShortDateString();
+        public string Print => $"Источник\nНазвание: {Name}\nОписание: {Text}\nДата добавления: {AddDateAsString}";
 
         #region Private Vars
         private string name;

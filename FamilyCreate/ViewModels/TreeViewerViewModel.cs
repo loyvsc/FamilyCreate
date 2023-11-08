@@ -45,9 +45,13 @@ namespace FamilyCreate.ViewModels
         {
             if (args.MouseArgs.RightButton != MouseButtonState.Pressed) return;
             args.VertexControl.ContextMenu = new ContextMenu();
-            var menuitem = new MenuItem { Header = "Удалить персону", Tag = args.VertexControl };
+            MenuItem menuitem = new MenuItem { Header = "Редактировать персону", Tag = args.VertexControl };
+            menuitem.Click += tg_updateitem_click;
+            args.VertexControl.ContextMenu.Items.Add(menuitem);
+            menuitem = new MenuItem { Header = "Удалить персону", Tag = args.VertexControl };
             menuitem.Click += tg_deleteitem_Click;
             args.VertexControl.ContextMenu.Items.Add(menuitem);
+
             args.VertexControl.ContextMenu.IsOpen = true;
         }
 
@@ -60,6 +64,21 @@ namespace FamilyCreate.ViewModels
             var datavertex = vc.Vertex as DataVertex;
             parent.Area.RemoveVertexAndEdges(datavertex);
             App.DatabaseContext.PersonsTable.RemoveAt(datavertex.PersonID);
+        }
+
+        private void tg_updateitem_click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            if (menuItem == null) return;
+            var vc = menuItem.Tag as VertexControl;
+            if (vc == null) return;
+            var datavertex = vc.Vertex as DataVertex;
+            EditPersonView editview = new EditPersonView(App.DatabaseContext.PersonsTable.ElementAt(datavertex.PersonID));
+            if (editview.ShowDialog() == true)
+            {
+                GraphVisualizerSetup();
+                PrintGraph();
+            }
         }
         #endregion
 
@@ -104,7 +123,7 @@ namespace FamilyCreate.ViewModels
 
             foreach (var item in personsList)
             {
-                var dataVertex = new DataVertex(item.ID, item.FIO!,item.BornDate,item.BornPlace,item.DeathDate,item.DeathPlace,item.IsMale);
+                var dataVertex = new DataVertex(item.ID, item.FIO!, item.BornDate, item.BornPlace, item.DeathDate, item.DeathPlace, item.IsMale);
                 //Add vertex to data graph
                 dataGraph.AddVertex(dataVertex);
             }

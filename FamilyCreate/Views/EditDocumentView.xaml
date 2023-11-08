@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:FamilyCreate.ViewModels"
         mc:Ignorable="d" Title="" Width="30" SizeToContent="WidthAndHeight"
-        MinHeight="300px" MinWidth="350" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner">
+        MinHeight="300px" MinWidth="470" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewmodels:EditDocumentViewModel/>
     </Window.DataContext>
@@ -19,6 +19,7 @@
             <RowDefinition Height="35px"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="35px"/>
+            <RowDefinition Height="20px"/>
         </Grid.RowDefinitions>
 
         <GroupBox Header="Файл" Margin="5,5,0,5">
@@ -45,14 +46,15 @@
 
         <TextBlock Text="Описание документа" Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" Grid.ColumnSpan="2"/>
         <TextBox Text="{Binding Document.Text}" Grid.Row="2" Grid.Column="0" Margin="5,15,5,20" Grid.ColumnSpan="2"/>
-        <TextBlock Text="{Binding AddDateText}" Grid.Row="2" Grid.Column="0" Margin="5,0,0,0" VerticalAlignment="Bottom"/>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal"
+        <StatusBar Grid.Row="4" Grid.ColumnSpan="2">
+            <StatusBarItem Content="{Binding AddDateText}"/>
+        </StatusBar>
+
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal"
                     HorizontalAlignment="Right" Margin="0,0,8,0" Grid.ColumnSpan="2">
             <Button Content="Сохранить" Width="110px" Margin="5,5,5,5" x:Name="okButton" Command="{Binding OKButtonCommand}"/>
             <Button Content="Отмена" Width="70px" Margin="5,5,5,5" x:Name="cancelButton" Command="{Binding CancelCommand}"/>
         </StackPanel>
-
-        
     </Grid>
 </Window>

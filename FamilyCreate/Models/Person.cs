@@ -259,5 +259,23 @@ namespace FamilyCreate.Models
             (Name != string.Empty || Surname != string.Empty || Patronomyc != string.Empty) &&
             BornDate != null;
 
+        public string Print
+        {
+            get
+            {
+                string father = "-";
+                string mother = "-";
+                if (FatherID!=0)
+                {
+                    father = App.DatabaseContext.PersonsTable.ElementAt(FatherID).FIO!;
+                }
+                if (MotherID != 0)
+                {
+                    mother = App.DatabaseContext.PersonsTable.ElementAt(MotherID).FIO!;
+                }
+                return $"Персона\nФИО: {FIO}\nДата рождения: {ShortBornDate}\nДата смерти: {ShortDeathDate}\n" +
+                    $"Отец: {father}\nМать: {mother}";
+            }
+        }
     }
 }

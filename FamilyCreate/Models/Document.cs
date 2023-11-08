@@ -105,7 +105,7 @@ namespace FamilyCreate.Models
             Text = string.Empty;
         }
 
-        public Document(int iD, int treeID, string text, int fileid, DateTime addDate, int sourceid,string name)
+        public Document(int iD, int treeID, string text, int fileid, DateTime addDate, int sourceid, string name)
         {
             ID = iD;
             TreeID = treeID;
@@ -115,5 +115,8 @@ namespace FamilyCreate.Models
             FileID = fileid;
             Name = name;
         }
+
+        public string Print =>
+            $"Документ \"{Name}\"\nДата добавления: {addDate.ToShortDateString()}\nОписание: {Text}";
     }
 }

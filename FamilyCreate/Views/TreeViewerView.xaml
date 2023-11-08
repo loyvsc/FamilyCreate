@@ -6,31 +6,21 @@
         xmlns:controls="http://schemas.panthernet.ru/graphx/"
         xmlns:viewmodels="clr-namespace:FamilyCreate.ViewModels"
         xmlns:graphs="clr-namespace:FamilyCreate.Controls.GraphArea"
-        mc:Ignorable="d" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner" WindowState="Maximized"
+        xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
+        mc:Ignorable="d" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Title="Генеалогическое дерево" MinHeight="300" MinWidth="500">
+    <Window.DataContext>
+        <viewmodels:TreeViewerViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <ResourceDictionary>
-            <LinearGradientBrush x:Key="NormalBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFFFFFFF" Offset="0"/>
-                <GradientStop Color="#FFA4ADBB" Offset="0.521"/>
-                <GradientStop Color="#FFD7E0EA" Offset="0.194"/>
-                <GradientStop Color="#FFBAC1CF" Offset="0.811"/>
-                <GradientStop Color="#FFBCC5D5" Offset="0.507"/>
-                <GradientStop Color="#FFE3E4E6" Offset="1"/>
-            </LinearGradientBrush>
+            <SolidColorBrush x:Key="NormalBrush" Color="#F0F0F0"/>
             <LinearGradientBrush x:Key="NormalBorderBrush" EndPoint="0.5,0" StartPoint="0.5,1">
                 <GradientStop Color="#FF8B8B8B"/>
                 <GradientStop Color="#FFADADAD" Offset="1"/>
             </LinearGradientBrush>
             <SolidColorBrush x:Key="NormalHighlightBrush" Color="#FFFFFFFF"/>
-            <LinearGradientBrush x:Key="MouseOverBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFFFFFFF" Offset="0" />
-                <GradientStop Color="#FFFEF3B5" Offset="0.318" />
-                <GradientStop Color="#FFFFEB70" Offset="0.488" />
-                <GradientStop Color="#FFFFD02E" Offset="0.502" />
-                <GradientStop Color="#FFFFD932" Offset="0.834" />
-                <GradientStop Color="#FFFFF48B" Offset="1" />
-            </LinearGradientBrush>
+            <SolidColorBrush x:Key="MouseOverBrush" Color="#F9F9F9"/>
             <LinearGradientBrush x:Key="MouseOverBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFEEE8CF" Offset="0" />
                 <GradientStop Color="#FFC4AF8C" Offset="0.536" />
@@ -80,7 +70,9 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Content="{Binding FIO}" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black" Grid.Column="1" Grid.Row="0" Margin="3" MinWidth="120"/>
-                                    <TextBlock Text="{Binding Age}" TextAlignment="Center" FontStyle="Italic" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Grid.Column="1" Grid.Row="1" Margin="3"/>
+                                    <TextBlock Text="{Binding Age}" TextAlignment="Center" FontStyle="Italic" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Gray"
+                                               Grid.Column="1" Grid.Row="1" Margin="3"/>
                                 </Grid>
                             </Grid>
                             <ControlTemplate.Triggers>
@@ -100,40 +92,42 @@
 
                 <Setter Property="ToolTip">
                     <Setter.Value>
-                        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="8"
-                                Background="{StaticResource NormalBrush}" UseLayoutRounding="True">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Дополнительная информация о персоне:" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
-                                <StackPanel Orientation="Horizontal" Margin="3">
-                                    <TextBlock MinWidth="70" Text="ФИО: " VerticalAlignment="Center"/>
-                                    <TextBlock FontWeight="Bold" Text="{Binding FIO}" Margin="3" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="3">
-                                    <TextBlock MinWidth="70" Text="Пол: " VerticalAlignment="Center"/>
-                                    <TextBlock FontWeight="Bold" Text="{Binding Gender}" Margin="3" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="3">
-                                    <TextBlock MinWidth="70" Text="Возраст: " VerticalAlignment="Center"/>
-                                    <TextBlock FontWeight="Bold" Text="{Binding Age}" Margin="3" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="3">
-                                    <TextBlock MinWidth="70" Text="Дата рождения: " VerticalAlignment="Center"/>
-                                    <TextBlock FontWeight="Bold" Text="{Binding BornDate}" Margin="3" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="3">
-                                    <TextBlock MinWidth="70" Text="Место рождения: " VerticalAlignment="Center"/>
-                                    <TextBlock FontWeight="Bold" Text="{Binding BornPlace}" Margin="3" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="3">
-                                    <TextBlock MinWidth="70" Text="Дата смерти: " VerticalAlignment="Center"/>
-                                    <TextBlock FontWeight="Bold" Text="{Binding DeathDate}" Margin="3" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="3">
-                                    <TextBlock MinWidth="70" Text="Место смерти: " VerticalAlignment="Center"/>
-                                    <TextBlock FontWeight="Bold" Text="{Binding DeathPlace}" Margin="3" VerticalAlignment="Center"/>
-                                </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="Дополнительная информация о персоне:" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontWeight="Bold"/>
+                            <StackPanel Orientation="Horizontal" Margin="3">
+                                <TextBlock MinWidth="70" Text="ФИО: " VerticalAlignment="Center"/>
+                                <TextBlock FontWeight="Bold" Text="{Binding FIO}" Margin="3" VerticalAlignment="Center"/>
                             </StackPanel>
-                        </Border>
+                            <StackPanel Orientation="Horizontal" Margin="3">
+                                <TextBlock MinWidth="70" Text="Пол: " VerticalAlignment="Center"/>
+                                <TextBlock FontWeight="Bold" Text="{Binding Gender}" Margin="3" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="3">
+                                <TextBlock MinWidth="70" Text="Возраст: " VerticalAlignment="Center"/>
+                                <TextBlock FontWeight="Bold" Text="{Binding Age}" Margin="3" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="3">
+                                <TextBlock MinWidth="70" Text="Дата рождения: " VerticalAlignment="Center"/>
+                                <TextBlock FontWeight="Bold" Text="{Binding BornDate}" Margin="3" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="3">
+                                <TextBlock MinWidth="70" Text="Место рождения: " VerticalAlignment="Center"/>
+                                <TextBlock FontWeight="Bold" Text="{Binding BornPlace}" Margin="3" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="3">
+                                <TextBlock MinWidth="70" Text="Дата смерти: " VerticalAlignment="Center"/>
+                                <TextBlock FontWeight="Bold" Text="{Binding DeathDate}" Margin="3" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="3">
+                                <TextBlock MinWidth="70" Text="Место смерти: " VerticalAlignment="Center"/>
+                                <TextBlock FontWeight="Bold" Text="{Binding DeathPlace}" Margin="3" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
                     </Setter.Value>
                 </Setter>
 
@@ -157,9 +151,8 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <Window.DataContext>
-        <viewmodels:TreeViewerViewModel/>
-    </Window.DataContext>
+    
+    <!-- Button grid-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -172,7 +165,9 @@
             <Grid>
                 <StackPanel>
                     <Button Width="30px" Command="{Binding UpdateCommand}" Height="30px" VerticalAlignment="Top">
-                        UPD
+                        <Button.Content>
+                            <svg:SvgViewbox Source="Icons/refresh.svg"/>
+                        </Button.Content>
                     </Button>
                     <GroupBox Header="Экспорт">
                         <StackPanel>

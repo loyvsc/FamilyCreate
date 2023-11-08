@@ -27,8 +27,8 @@ namespace FamilyCreate.Database
 
         public void Add(Person item)
         {
-            string deathParams = (item.DeathDate != null && item.DeathPlaceID != -1) ? "DEATHDATE,DEATHPLACEID," : "";
-            string deathValues = (item.DeathDate != null && item.DeathPlaceID != -1) ? $"'{item.DeathDate?.ToMySQLDateString()}',{item.DeathPlaceID}," : "";
+            string deathParams = (item.DeathDate != null && item.DeathPlaceID != null) ? "DEATHDATE,DEATHPLACEID," : "";
+            string deathValues = (item.DeathDate != null && item.DeathPlaceID != null) ? $"'{item.DeathDate?.ToMySQLDateString()}',{item.DeathPlaceID}," : "";
 
             string fatmatParams = (item.FatherID != -1 && item.MotherID != -1) ? ",FATHERID,MOTHERID" : "";
             string fatmatValues = (item.FatherID != -1 && item.MotherID != -1) ? $",{item.FatherID},{item.MotherID}" : "";
@@ -82,9 +82,13 @@ namespace FamilyCreate.Database
             _connection.Open();
             string deathplaceid = item.DeathPlaceID == null ? "NULL" : item.DeathPlaceID.ToString();
             string deathdatge = item.DeathDate == null ? "NULL" : $"'{item.DeathDate.Value.ToMySQLDateString()}'";
+
+            string mother = item.MotherID == 0 ? "" : $", motherid = {item.MotherID}";
+            string father = item.FatherID == 0 ? "" : $", fatherid = {item.FatherID}";
+
             using (MySqlCommand command = new MySqlCommand($"UPDATE Persons SET ismale=@ismale, Name = '{item.Name}', Surname = '{item.Surname}'," +
                 $"Patronomyc = '{item.Patronomyc}',borndate = '{item.BornDate.Value.ToMySQLDateString()}',bornplaceid={item.BornPlaceID}," +
-                $"deathdate = {deathdatge},deathplaceid={deathplaceid}, fatherid = {item.FatherID}, motherid = {item.MotherID} WHERE ID = {item.ID};", _connection))
+                $"deathdate = {deathdatge},deathplaceid={deathplaceid}{mother}{father} WHERE ID = {item.ID};", _connection))
             {
                 command.Parameters.AddWithValue("@ismale", (item.IsMale ? 1 : 0));
                 command.ExecuteNonQuery();

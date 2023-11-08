@@ -66,6 +66,8 @@ namespace FamilyCreate.Models
             Name = string.Empty;
         }
 
+        public string Print => $"Место\nНазвание: {Name}\nОписание: {Description}\nШирота: {Latitude}. Долгота: {Longitude}";
+
         public Place(int iD, string lon, string lat, string name, string desc) : this()
         {
             ID = iD;

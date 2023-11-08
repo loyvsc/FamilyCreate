@@ -124,7 +124,8 @@ namespace FamilyCreate.ViewModels
                 App.DatabaseContext?.TreeTable.Add(NewTree);
                 NewTree.ID = App.DatabaseContext!.TreeTable.GetIDByItem(NewTree);
                 StaticValues.AddTree = newTree;
-                parentWindow.DialogResult = true;
+                parentWindow!
+                    .DialogResult = true;
             }
         }
 

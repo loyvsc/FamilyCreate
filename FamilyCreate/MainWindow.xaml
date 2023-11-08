@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:FamilyCreate.ViewModels"
-        xmlns:controls="clr-namespace:FamilyCreate.Controls"
+        xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" Background="#F0F0F0" MinWidth="647"
         Title="Программное средство «Генеалогическое древо»" MinHeight="445" SizeToContent="WidthAndHeight">
     <Window.DataContext>
@@ -16,6 +16,11 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="svg:SvgViewbox">
+                <Setter Property="Height" Value="24px"/>
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="18px"/>
             <RowDefinition Height="*"/>
@@ -38,15 +43,39 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                        <Button Command="{Binding AddValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/add.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Добавить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding EditValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/edit.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Изменить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding DeleteValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/remove.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Удалить"/>
+                            </StackPanel>
+                        </Button>
                         <StackPanel Background="#F0F0F0">
                             <Separator Margin="5,5,5,5"/>
                         </StackPanel>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding CreateTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                        <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/print.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Печать"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                     <DataGrid Grid.Column="1" IsReadOnly="True" ItemsSource="{Binding PersonsList,UpdateSourceTrigger=PropertyChanged}"
                                  SelectedValue="{Binding SelectedPerson}" SelectionMode="Single" SelectionUnit="FullRow">
@@ -72,16 +101,40 @@
                         <ColumnDefinition Width="150px"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                    <StackPanel>
+                        <Button Command="{Binding AddValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/add.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Добавить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding EditValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/edit.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Изменить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding DeleteValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/remove.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Удалить"/>
+                            </StackPanel>
+                        </Button>
                         <StackPanel Background="#F0F0F0">
                             <Separator Margin="5,5,5,5"/>
                         </StackPanel>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding CreateTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                        <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/print.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Печать"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding NotesList}" SelectedItem="{Binding SelectedNote}"
                               IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible">
@@ -99,16 +152,40 @@
                         <ColumnDefinition Width="150px"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                    <StackPanel>
+                        <Button Command="{Binding AddValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/add.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Добавить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding EditValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/edit.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Изменить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding DeleteValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/remove.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Удалить"/>
+                            </StackPanel>
+                        </Button>
                         <StackPanel Background="#F0F0F0">
                             <Separator Margin="5,5,5,5"/>
                         </StackPanel>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding CreateTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                        <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/print.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Печать"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding PlacesList}" SelectedItem="{Binding SelectedPlace}"
                               IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible">
@@ -128,16 +205,40 @@
                         <ColumnDefinition Width="150px"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                    <StackPanel>
+                        <Button Command="{Binding AddValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/add.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Добавить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding EditValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/edit.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Изменить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding DeleteValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/remove.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Удалить"/>
+                            </StackPanel>
+                        </Button>
                         <StackPanel Background="#F0F0F0">
                             <Separator Margin="5,5,5,5"/>
                         </StackPanel>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding CreateTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                        <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/print.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Печать"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding RodsList}" SelectedItem="{Binding SelectedRod}" IsReadOnly="True"
                               Grid.Column="1" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible">
@@ -154,24 +255,48 @@
                         <ColumnDefinition Width="150px"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                    <StackPanel>
+                        <Button Command="{Binding AddValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/add.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Добавить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding EditValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/edit.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Изменить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding DeleteValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/remove.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Удалить"/>
+                            </StackPanel>
+                        </Button>
                         <StackPanel Background="#F0F0F0">
                             <Separator Margin="5,5,5,5"/>
                         </StackPanel>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding CreateTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                        <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/print.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Печать"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding EventList}" SelectedItem="{Binding SelectedEvent}" IsReadOnly="True"
                               Grid.Column="1" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="40" Header="ID" Binding="{Binding ID}"/>
                             <DataGridTextColumn Width="140" Header="Место прохождения" Binding="{Binding Place}"/>
-                            <DataGridTextColumn Width="140" Header="Дата начала" Binding="{Binding StartDateAsDate}"/>
-                            <DataGridTextColumn Width="140" Header="Дата завершения" Binding="{Binding EndDateAsDate}"/>
+                            <DataGridTextColumn Width="140" Header="Дата начала" Binding="{Binding StartDateAsString}"/>
+                            <DataGridTextColumn Width="140" Header="Дата завершения" Binding="{Binding EndDateAsString}"/>
                             <DataGridTextColumn Width="140" Header="Описание" Binding="{Binding Text}"/>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -183,16 +308,40 @@
                         <ColumnDefinition Width="150px"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                    <StackPanel>
+                        <Button Command="{Binding AddValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/add.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Добавить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding EditValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/edit.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Изменить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding DeleteValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/remove.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Удалить"/>
+                            </StackPanel>
+                        </Button>
                         <StackPanel Background="#F0F0F0">
                             <Separator Margin="5,5,5,5"/>
                         </StackPanel>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding CreateTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                        <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/print.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Печать"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding SourceList}" SelectedItem="{Binding SelectedSource}" IsReadOnly="True"
                               Grid.Column="1" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible">
@@ -211,16 +360,40 @@
                         <ColumnDefinition Width="150px"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding AddValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Добавить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding EditValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Изменить"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding DeleteValueCommand}" ButtonCommandParameter="{Binding SelectedTab}" ButtonText="Удалить"/>
+                    <StackPanel>
+                        <Button Command="{Binding AddValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/add.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Добавить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding EditValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/edit.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Изменить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding DeleteValueCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/remove.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Удалить"/>
+                            </StackPanel>
+                        </Button>
                         <StackPanel Background="#F0F0F0">
                             <Separator Margin="5,5,5,5"/>
                         </StackPanel>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding NewTreeCommand}" ButtonText="Построить отчет"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding CreateTreeCommand}" ButtonText="Построить дерево"/>
-                        <controls:ImageButton Height="35" ButtonCommand="{Binding SaveTreeCommand}" ButtonText="Печать"/>
+                        <Button Command="{Binding CreateTreeCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/family.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Создать дерево"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding PrintCommand}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Left" CommandParameter="{Binding SelectedTab}">
+                            <StackPanel Orientation="Horizontal">
+                                <svg:SvgViewbox Grid.Column="0" Source="Icons/print.svg" HorizontalAlignment="Left" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Печать"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding DocumentsList}" SelectedItem="{Binding SelectedDocument}"
                               IsReadOnly="True" Grid.Column="1" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Visible">

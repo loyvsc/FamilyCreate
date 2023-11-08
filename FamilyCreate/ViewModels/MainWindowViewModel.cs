@@ -1,5 +1,6 @@
 ﻿using FamilyCreate.Models;
 using FamilyCreate.Views;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -218,6 +219,7 @@ namespace FamilyCreate.ViewModels
         public ICommand AddValueCommand => new RelayCommand(Add);
         public ICommand DeleteValueCommand => new RelayCommand(Delete);
         public ICommand EditValueCommand => new RelayCommand(Edit);
+        public ICommand PrintCommand => new RelayCommand(Print);
         #endregion
 
         #region CreateOrOpenTreeMethods
@@ -242,8 +244,76 @@ namespace FamilyCreate.ViewModels
                 IsTreeCreatedOrOpen = true;
             }
         }
-
         #endregion
+
+        private void Print(object obj)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            TextBlock textBlock = new TextBlock()
+            {
+                Margin = new Thickness(50),
+                FontSize = 12
+            };
+            if (printDialog.ShowDialog() == true)
+            {
+                try
+                {
+
+                    switch (SelectedTabItem.Header)
+                    {
+                        case "Персоны":
+                            {
+                                textBlock.Text = SelectedPerson.Print;
+                                printDialog.PrintVisual(textBlock, "Печать персоны");
+                                break;
+                            }
+                        case "Заметки":
+                            {
+                                textBlock.Text = SelectedNote.Print;
+                                printDialog.PrintVisual(textBlock, "Печать заметки");
+                                break;
+                            }
+                        case "Места":
+                            {
+                                textBlock.Text = SelectedPlace.Print;
+                                printDialog.PrintVisual(textBlock, "Печать места");
+                                break;
+                            }
+                        case "Роды":
+                            {
+                                textBlock.Text = SelectedRod.Print;
+                                printDialog.PrintVisual(textBlock, "Печать рода");
+                                break;
+                            }
+                        case "Источники":
+                            {
+                                textBlock.Text = SelectedSource.Print;
+                                printDialog.PrintVisual(textBlock, "Печать источника");
+                                break;
+                            }
+                        case "События":
+                            {
+                                textBlock.Text = SelectedEvent.Print;
+                                printDialog.PrintVisual(textBlock, "Печать события");
+                                break;
+                            }
+                        case "Документы":
+                            {
+                                textBlock.Text = SelectedDocument.Print;
+                                printDialog.PrintVisual(textBlock, "Печать документа");
+                                break;
+                            }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Во время печати произошла ошибка! Повторите попытку позже...\nСведения об ошибке:\n"+ex.Message, "Печать", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                MessageBox.Show("Печать успешно завершена!", "Печать", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+        }
 
         private void LoadValuesAfterGetTree()
         {

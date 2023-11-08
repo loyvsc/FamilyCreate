@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:FamilyCreate.ViewModels"
-        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         MinHeight="110px" MinWidth="305px" ResizeMode="CanResize" SizeToContent="WidthAndHeight" Width="305">
     <Window.DataContext>
         <viewmodels:EditRodViewModel/>

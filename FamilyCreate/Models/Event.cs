@@ -82,8 +82,8 @@ namespace FamilyCreate.Models
             }
         }
 
-        public DateTime? StartDateAsDate => StartDate?.Date;
-        public DateTime? EndDateAsDate => EndDate?.Date;
+        public string? StartDateAsString => StartDate?.ToShortDateString();
+        public string? EndDateAsString => EndDate?.ToShortDateString();
 
         public List<Person> EventPerons
         {
@@ -121,7 +121,7 @@ namespace FamilyCreate.Models
             PlaceID = placeId;
             StartDate = start;
             EndDate = end;
-            Text = text;            
+            Text = text;
             EventPerons = App.DatabaseContext!.PersonsTable.Select($"SELECT * FROM Persons WHERE ID in (SELECT PersonID FROM EventPersons WHERE EventID = {ID});");
         }
 
@@ -130,5 +130,19 @@ namespace FamilyCreate.Models
             PlaceID != -1 &&
             StartDate != null &&
             Text != string.Empty;
+
+        public string Print
+        {
+            get
+            {
+                string persons = string.Empty;
+                foreach(Person item in App.DatabaseContext.PersonsTable.ToList())
+                {
+                    persons += item.FIO + "\n";
+                }
+                return $"Событие\nДата начала: {StartDateAsString}\nДата окончания: " +
+                    $"{EndDateAsString}\nОписание: {Text}\nУчавствующие лица: \n{persons}";
+            }
+        }            
     }
 }

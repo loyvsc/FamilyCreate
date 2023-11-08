@@ -137,6 +137,7 @@ namespace FamilyCreate.ViewModels
             SelectedBornPlaceIndex = -1;
             SelectedDeathPlaceIndex = -1;
             Person = new Person();
+            Person.IsMale = true;
             OKButtonText = "Добавить";
             MothersList = App.DatabaseContext.PersonsTable.Select("SELECT * FROM mothers");
             FathersList = App.DatabaseContext.PersonsTable.Select("SELECT * FROM fathers");
@@ -167,9 +168,17 @@ namespace FamilyCreate.ViewModels
             {
                 SelectedFatherIndex = FathersList.IndexOf(FathersList.Find((x) => x.ID == person.FatherID));
             }
+            else
+            {
+                SelectedFatherIndex = -1;
+            }
             if (person.MotherID != 0)
             {
                 SelectedMotherIndex = MothersList.IndexOf(MothersList.Find((x) => x.ID == person.MotherID));
+            }
+            else
+            {
+                SelectedMotherIndex = -1;
             }
         }
         #endregion

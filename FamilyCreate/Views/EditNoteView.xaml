@@ -4,14 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:FamilyCreate.ViewModels"
-        mc:Ignorable="d" Title="{Binding Title}" WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d" Title="{Binding Title}" WindowStartupLocation="CenterScreen"
         MinHeight="200px" MinWidth="320px" ResizeMode="CanResizeWithGrip" Width="30" SizeToContent="Height">
     <Window.DataContext>
         <viewmodels:EditNoteViewModel/>
     </Window.DataContext>
     <Grid Margin="5,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="35px"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="35px"/>
         </Grid.RowDefinitions>

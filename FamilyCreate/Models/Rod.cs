@@ -9,6 +9,7 @@ namespace FamilyCreate.Models
         public string Name { get; set; }
 
         public bool IsValid => Name != string.Empty;
+        public string Print => $"Род\nНазвание: {Name}";
 
         public Rod()
         {

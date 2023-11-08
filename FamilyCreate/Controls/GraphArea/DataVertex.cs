@@ -1,7 +1,6 @@
 ﻿using FamilyCreate.Models;
 using GraphX.Common.Models;
 using System;
-using System.Reflection;
 
 namespace FamilyCreate.Controls.GraphArea
 {
@@ -20,7 +19,7 @@ namespace FamilyCreate.Controls.GraphArea
 
         public DataVertex() : this(-1) { }
 
-        public DataVertex(int id = -1,string text = "", DateTime? bornDate = null, Place? bornPlace = null,
+        public DataVertex(int id = -1, string text = "", DateTime? bornDate = null, Place? bornPlace = null,
             DateTime? deathDate = null, Place? deathPlace = null, bool ismale = true)
         {
             PersonID = id;

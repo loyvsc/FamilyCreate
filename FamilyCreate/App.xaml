@@ -2,9 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:FamilyCreate"
-             xmlns:controls="clr-namespace:FamilyCreate.Controls"
+             xmlns:controls="clr-namespace:FamilyCreate.Controls"             
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Image x:Key="refreshicon" Source="Icons/refreshicon.png"/>
+
         <SolidColorBrush Color="#f0f0f0" x:Key="baseColor"/>
         <SolidColorBrush Color="#9e9d9d" x:Key="secondColor"/>
         <Style TargetType="DataGridColumnHeader">

@@ -75,11 +75,22 @@ namespace FamilyCreate.Database
             CreateViews();
         }
 
-        private void CreateFKS() => Query("ALTER TABLE Rods ADD FOREIGN KEY (TreeID) REFERENCES Trees(ID);" +
-            "");
+        private void CreateFKS() => Query("ALTER TABLE Rods ADD FOREIGN KEY (TreeID) REFERENCES Trees(ID) ON DELETE CASCADE;" +
+            "ALTER TABLE NOTES ADD FOREIGN KEY (treeid) references trees(id) on delete cascade;" +
+            "ALTER TABLE Documents ADD FOREIGN KEY (treeid) references trees(id) on delete cascade;" +
+            "ALTER TABLE Documents ADD FOREIGN KEY (sourceid) references sources(id) on delete cascade;" +
+            "ALTER TABLE SOURCES ADD FOREIGN KEY (treeid) references trees(id) on delete cascade;" +
+            "ALTER TABLE EVENTS ADD FOREIGN KEY (RODID) REFERENCES RODS(ID) ON DELETE CASCADE;" +
+            "ALTER TABLE EVENTS ADD FOREIGN KEY (PLACEID) REFERENCES PLACES(ID) ON DELETE CASCADE;" +
+            "ALTER TABLE EVENTPERSONS ADD FOREIGN KEY (EVENTID) REFERENCES EVENTS(ID) ON DELETE CASCADE;" +
+            "ALTER TABLE EVENTPERSONS ADD FOREIGN KEY (PERSONID) REFERENCES PERSONS(ID) ON DELETE CASCADE;" +
+            "ALTER TABLE PERSONS ADD FOREIGN KEY (RODID) REFERENCES RODS(ID) ON DELETE CASCADE;" +
+            "ALTER TABLE PERSONS ADD FOREIGN KEY (motherid) REFERENCES PERSONS(ID) ON DELETE SET NULL;" +
+            "ALTER TABLE PERSONS ADD FOREIGN KEY (fatherid) REFERENCES PERSONS(ID) ON DELETE SET NULL;" +
+            "ALTER TABLE DOCUMENTS ADD FOREIGN KEY (FILEID) REFERENCES FILES(ID) ON DELETE CASCADE;");
         private void CreateViews() =>
             Query("CREATE VIEW fathers AS SELECT * FROM PERSONS WHERE ISMALE = 1;"+
-                "CREATE VIEW mothers AS SELECT * FROM PERSONS WHERE ISMALE = 0;");
+                "CREATE VIEW mothers AS SELECT * FROM PERSONS WHERE ISMALE = 0;");        
 
         public void Query(string query)
         {

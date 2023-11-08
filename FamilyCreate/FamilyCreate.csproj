@@ -5,7 +5,19 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>False</UseWindowsForms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\add.svg" />
+    <None Remove="Icons\edit.svg" />
+    <None Remove="Icons\family.svg" />
+    <None Remove="Icons\print.svg" />
+    <None Remove="Icons\refresh.svg" />
+    <None Remove="Icons\reload.svg" />
+    <None Remove="Icons\remove.svg" />
+    <None Remove="Icons\report.svg" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Views\EditEventView.xaml.cs">
@@ -31,6 +43,18 @@
   <ItemGroup>
     <PackageReference Include="GraphX" Version="3.0.0" />
     <PackageReference Include="MySqlConnector" Version="2.2.7" />
+    <PackageReference Include="SharpVectors" Version="1.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\add.svg" />
+    <Resource Include="Icons\edit.svg" />
+    <Resource Include="Icons\family.svg" />
+    <Resource Include="Icons\print.svg" />
+    <Resource Include="Icons\refresh.svg" />
+    <Resource Include="Icons\reload.svg" />
+    <Resource Include="Icons\remove.svg" />
+    <Resource Include="Icons\report.svg" />
   </ItemGroup>
 
 </Project>

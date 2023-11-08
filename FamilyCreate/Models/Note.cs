@@ -66,5 +66,7 @@ namespace FamilyCreate.Models
         }
 
         public bool IsValid => Text != string.Empty && Name != string.Empty;
+
+        public string Print => $"Заметка\nНазвание: {Name}\nОписание: {Text}";
     }
 }

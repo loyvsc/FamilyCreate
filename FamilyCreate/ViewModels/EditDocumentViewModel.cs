@@ -39,7 +39,7 @@ namespace FamilyCreate.ViewModels
             }
         }
 
-        public string AddDateText => Document.ID != -1 ? Document.AddDate.ToShortDateString() : "";
+        public string AddDateText => Document.ID != -1 ? "Дата добавления: "+ Document.AddDate.ToShortDateString() : "";
         public List<Source> SourceList
         {
             get => srclst;
