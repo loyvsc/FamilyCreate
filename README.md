@@ -3,4 +3,4 @@
 Используется СУБД MySQL, .NET 7, WPF.
 Главное окно приложения представлено на рисунке ниже.
 
-![mainwindow](https://github.com/loyvsc/FamilyCreate/assets/119746866/eff04ea9-eb79-4c34-8e2d-ef5f1588420b)
+![image](https://github.com/loyvsc/FamilyCreate/assets/119746866/34ec15f4-afca-4936-a68b-4e6ec1b6b831)
